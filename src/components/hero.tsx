@@ -67,7 +67,7 @@ function Hero() {
   return (
     <div className="flex flex-row flex-wrap h-[100dvh] md:min-h-[80dvh]">
       <div className="bg-[#DED6CD] flex flex-col md:gap-4 gap-8 justify-center max-lg:w-full lg:w-[40%] p-6 md:p-20">
-        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-1 w-[45%] md:max-w-[58%] flex flex-row items-center justify-center gap-3">
+        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-1 max-md:w-[45%] md:max-w-[58%] flex flex-row items-center justify-center gap-3">
           <Image
             src={star}
             alt="star"
