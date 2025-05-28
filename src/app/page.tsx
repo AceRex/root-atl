@@ -8,6 +8,7 @@ import Products from "./views/products";
 import HowItWorks from "./views/H-I-W";
 import Footer from "./views/footer";
 import JoinUs from "./views/joinUs";
+import BestSelling from "./views/bestSelling";
 
 export default function HomePage() {
   return (
@@ -21,6 +22,7 @@ export default function HomePage() {
         <Overview />
         <Products />
         <HowItWorks />
+        <BestSelling />
         <JoinUs />
         <Footer />
       </div>
