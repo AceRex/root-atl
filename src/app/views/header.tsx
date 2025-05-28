@@ -8,9 +8,9 @@ import {
   ShoppingCartSimpleIcon,
 } from "@phosphor-icons/react";
 import Logo from "@/assets/logo.png";
-import Container from "./container";
+import Container from "../../components/container";
 import { AlignJustify, ChevronDown } from "lucide-react";
-import { Input } from "./ui/input";
+import { Input } from "../../components/ui/input";
 
 export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);

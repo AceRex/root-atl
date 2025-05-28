@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import star from "@/assets/star.png";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Rad_berries from "@/assets/products/1bd18ebf8c59505166e682537732b3f9a5c328d5.png";
 import snail_gel from "@/assets/products/1e43bbea1408c0182474afbe0857d71393a157e8.png";
@@ -65,61 +65,69 @@ function Hero() {
   };
 
   return (
-    <div className="flex flex-row flex-wrap h-[100dvh] md:min-h-[80dvh]">
-      <div className="bg-[#DED6CD] flex flex-col md:gap-4 gap-8 justify-center max-lg:w-full lg:w-[40%] p-6 md:p-20">
-        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-1 max-md:w-[45%] md:max-w-[58%] flex flex-row items-center justify-center gap-3">
-          <Image
-            src={star}
-            alt="star"
-            className="w-[20px] h-[20px] hidden md:block"
-          />
-          <p className="text-sm max-md:text-white font-medium">
-            100,000+Happy customer
-          </p>
-        </div>
-        <p className="md:text-7xl text-6xl font-medium md:text-[#221A11] text-[#624B31]">
-          <span className="md:text-[#234D35] md:italic">Healing</span> from the
-          inside out
-        </p>
-        <div className="flex flex-row gap-4 w-full">
-          <Button className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-8">
-            Shop now <ChevronRight />
-          </Button>
-          <Button
-            variant="outline"
-            className="border-[#4F4840]  flex-grow font-semibold bg-transparent text-lg text-[#221A11] py-8"
-          >
-            Join the ROOT Network
-          </Button>
-        </div>
-      </div>
-      <div className="bg-[#285A37] max-lg:w-full lg:w-[60%] relative overflow-hidden">
-        {SlideImages.map((item, index) => (
-          <div
-            key={item.id}
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
-              index === currentIndex ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <Image
-              src={item.image}
-              alt="image"
-              className="w-[400px] object-contain"
-            />
-          </div>
-        ))}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
-          {SlideImages.map((_, idx) => (
-            <div
-              key={idx}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentIndex ? "w-6 bg-white" : "w-4 bg-white/50"
-              }`}
-            ></div>
-          ))}
-        </div>
-      </div>
+<div className="flex flex-col lg:flex-row w-full min-h-[80dvh]">
+  {/* LEFT: Text Content */}
+  <div className="bg-[#DED6CD] w-full lg:w-[42%] flex flex-col items-start justify-center gap-4 px-10 py-12 md:p-20">
+    <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-1 max-w-[70%] flex flex-row items-center justify-center gap-3">
+      <Image
+        src={star}
+        alt="star"
+        className="w-[20px] h-[20px] hidden md:block"
+      />
+      <p className="text-sm max-md:text-white font-medium">
+        100,000+ Happy customers
+      </p>
     </div>
+
+    <p className="md:text-7xl text-4xl font-medium md:text-[#221A11] text-[#624B31]">
+      <span className="md:text-[#234D35] md:italic">Healing</span> from the
+      inside out
+    </p>
+
+    <div className="flex flex-col sm:flex-row gap-4 w-full">
+      <Button className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-6">
+        Shop now <ChevronRight />
+      </Button>
+      <Button
+        variant="outline"
+        className="border-[#4F4840] flex-grow font-semibold bg-transparent text-lg text-[#221A11] py-6"
+      >
+        Join the ROOT Network
+      </Button>
+    </div>
+  </div>
+
+  {/* RIGHT: Image Slider */}
+  <div className="bg-[#285A37] w-full lg:w-[58%] relative overflow-hidden h-[50vh] lg:h-auto">
+    {SlideImages.map((item, index) => (
+      <div
+        key={item.id}
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
+          index === currentIndex ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <Image
+          src={item.image}
+          alt="slide"
+          className="w-[300px] lg:w-[400px] object-contain"
+        />
+      </div>
+    ))}
+
+    {/* Dots */}
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+      {SlideImages.map((_, idx) => (
+        <div
+          key={idx}
+          className={`h-2 rounded-full transition-all duration-300 ${
+            idx === currentIndex ? "w-6 bg-white" : "w-4 bg-white/50"
+          }`}
+        ></div>
+      ))}
+    </div>
+  </div>
+</div>
+
   );
 }
 
