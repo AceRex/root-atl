@@ -6,7 +6,7 @@ import { Button } from "../../components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Rad_berries from "@/assets/products/1bd18ebf8c59505166e682537732b3f9a5c328d5.png";
 import snail_gel from "@/assets/products/1e43bbea1408c0182474afbe0857d71393a157e8.png";
-import nibbles from "@/assets/products/6e73899109943999fdb25353ac2ada7cceed2a27.png";
+import nibbles from "@/assets/products/64e6205920775bad4b49ff8a3c9f85907cfeaa23.jpg";
 import tripleGlow from "@/assets/products/6fb120683067d6148a26d199c5dc058f0a2f5a9e.png";
 import glowWash from "@/assets/products/8a083c5511733a9befd8178c5149ac3b5166a71b.png";
 import rad_berried from "@/assets/products/043f5d484a21b7849cbc05209f23065eaeaffbf1.png";
@@ -14,7 +14,7 @@ import bbl_boost from "@/assets/products/92ddecfe069c1dd8e39b0991d43c31d2c0d0222
 import snoozy from "@/assets/products/a067c35e188427fb75002275d9b4d069c9eeb630.png";
 import watch from "@/assets/products/ad309a0e85b0eff4af210a9d3816d28ecf1642b7.png";
 import zentea from "@/assets/products/be87c2e6258353447c1344b9d49b640327063cd7.png";
-import slimTea from "@/assets/products/c5373a3a56d552f4c6f97b640a8297491a10252d.png";
+import slimTea from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.png";
 import immunDrop from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.png";
 import femme from "@/assets/products/fcec0e9f46b97d750fb3f9bc76de94069aa9e670.png";
 

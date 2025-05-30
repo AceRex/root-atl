@@ -11,6 +11,7 @@ import Logo from "@/assets/logo.png";
 import Container from "../../components/container";
 import { AlignJustify, ChevronDown } from "lucide-react";
 import { Input } from "../../components/ui/input";
+import Link from "next/link";
 
 export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -36,7 +37,10 @@ export default function Header() {
       </Container>
       <Container className="py-3 min-h-[84px] flex flex-row items-center justify-between">
         {/* Logo */}
-        <div className="flex justify-between items-center gap-2 w-full md:w-[60%]">
+        <Link
+          href={"/"}
+          className="flex justify-between items-center gap-2 w-full md:w-[60%]"
+        >
           <Image src={Logo} alt="Roots ATL Logo" width={150} height={150} />
           <div className="px-2 hidden md:flex items-center  flex-row gap-2 border border-[#D0D5DD] bg-[#F0F2F5] rounded-md text-sm w-full">
             <MagnifyingGlassIcon size={25} color="#667185" />
@@ -47,16 +51,18 @@ export default function Header() {
             />
           </div>
           <AlignJustify className="md:hidden block" />
-        </div>
+        </Link>
 
         {/* Center Nav */}
         <div className="hidden md:flex flex-end justify-end items-center gap-6">
           <p className="font-semibold text-sm flex flex-row items-center gap-2">
             Products <ChevronDown size={20} />
           </p>
-          <p className="font-semibold text-sm flex text-[#B69B64] flex-row items-center gap-2">
-            Sign up
-          </p>
+          <li className="font-semibold text-sm flex flex-row items-center gap-2">
+            <Link href="/signup" className=" text-[#B69B64]">
+              Sign up
+            </Link>
+          </li>
           <ShoppingCartSimpleIcon size={20} />
         </div>
       </Container>
