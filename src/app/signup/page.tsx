@@ -36,7 +36,7 @@ function Page() {
   return (
     <div className="min-h-[100dvh] relative pt-[5rem] lg:pt-[7.5rem] bg-[#FAF9F6]">
       <Container className="lg:px-28 max-sm:!px-0 py-4">
-        <div className="bg-white p-12 rounded-lg">
+        <div className="bg-white p-24 rounded-xl">
           <div className="text-center">
             <h3 className="font-semibold text-3xl">Sign up</h3>
             <p>
