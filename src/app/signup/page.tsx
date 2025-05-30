@@ -19,6 +19,9 @@ import {
   EyeOff,
   Mail,
   Phone,
+  PiggyBankIcon,
+  PointerIcon,
+  Share2Icon,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,7 +35,7 @@ function Page() {
 
   return (
     <div className="min-h-[100dvh] relative pt-[5rem] lg:pt-[7.5rem] bg-[#FAF9F6]">
-      <Container className="px-28 py-4">
+      <Container className="lg:px-28 max-sm:!px-0 py-4">
         <div className="bg-white p-12 rounded-lg">
           <div className="text-center">
             <h3 className="font-semibold text-3xl">Sign up</h3>
@@ -45,7 +48,7 @@ function Page() {
             </p>
           </div>
           <div className="flex flex-row flex-wrap mt-12">
-            <form className="w-[40%]">
+            <form className="lg:w-[40%] w-full">
               <div className="my-5">
                 <label className="ml-1 text-sm">First Name</label>
                 <Input className="h-10 mt-1 w-full border border-neutral-300" />
@@ -163,6 +166,34 @@ function Page() {
                 Continue
               </Button>
             </form>
+            <div className="hidden lg:block lg:w-[60%] px-12 ">
+              <div className="rounded-lg p-24 bg-[#F8D8CC] flex flex-col gap-12">
+                <div className="flex flex-col justify-center gap-3 text-center items-center">
+                  <PointerIcon size={30} />
+                  <h4 className="text-lg font-semibold">Subscribe</h4>
+                  <p className="text-sm">
+                    Make your own work schedule, set your own working hours,
+                    work from home, work online - be independent
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center gap-3 text-center items-center">
+                  <Share2Icon size={30} />
+                  <h4 className="text-lg font-semibold">Share</h4>
+                  <p className="text-sm">
+                    Make your own work schedule, set your own working hours,
+                    work from home, work online - be independent
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center gap-3 text-center items-center">
+                  <PiggyBankIcon size={30} />
+                  <h4 className="text-lg font-semibold">Earn</h4>
+                  <p className="text-sm">
+                    Make your own work schedule, set your own working hours,
+                    work from home, work online - be independent
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Container>

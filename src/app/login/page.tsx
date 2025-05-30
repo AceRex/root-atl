@@ -32,14 +32,14 @@ function Page() {
 
   return (
     <div className="min-h-[100dvh] pt-[5rem] lg:pt-[7.5rem] bg-[#FAF9F6]">
-      <Container className="px-28 py-12">
+      <Container className="lg:px-28 max-sm:!px-0 py-4">
         <div className="bg-white p-12 rounded-lg">
           <div className="text-center">
             <h3 className="font-semibold text-3xl">Log In</h3>
             <p>Enter your credentials to access your account</p>
           </div>
           <div className="flex flex-row flex-wrap justify-center mt-12">
-            <form className="w-[40%]">
+            <form className="lg:w-[40%] w-full">
               <div className="my-5">
                 <label className="ml-1 text-sm">Email</label>
                 <div className="relative rounded-lg mt-1 w-full border border-neutral-300">
