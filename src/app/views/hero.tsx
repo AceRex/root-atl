@@ -68,7 +68,7 @@ function Hero() {
 <div className="flex flex-col lg:flex-row w-full min-h-[80dvh]">
   {/* LEFT: Text Content */}
   <div className="bg-[#DED6CD] w-full lg:w-[42%] flex flex-col items-start justify-center gap-4 px-10 py-12 md:p-20">
-    <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-1 max-w-[70%] flex flex-row items-center justify-center gap-3">
+    <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-2 max-w-[70%] flex flex-row items-center justify-center gap-3">
       <Image
         src={star}
         alt="star"
