@@ -54,7 +54,7 @@ function BestSelling() {
         <h4 className="text-2xl font-semibold">Best Sellings</h4>
         <div className="w-10">
           <Button
-            onClick={() => route.push("/allproducts/1")}
+            onClick={() => route.push("/allproducts")}
             className="bg-white flex-grow font-semibold border cursor-pointer border-neutral-400 text-sm text-neutral-400 py-5"
           >
             Shop now <ChevronRight />

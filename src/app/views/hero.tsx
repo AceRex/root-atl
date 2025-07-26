@@ -17,6 +17,7 @@ import zentea from "@/assets/products/be87c2e6258353447c1344b9d49b640327063cd7.p
 import slimTea from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.png";
 import immunDrop from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.png";
 import femme from "@/assets/products/fcec0e9f46b97d750fb3f9bc76de94069aa9e670.png";
+import { useRouter } from "next/navigation";
 
 const SlideImages: { id: number; image: any }[] = [
   { id: 1, image: Rad_berries },
@@ -37,6 +38,8 @@ const SlideImages: { id: number; image: any }[] = [
 function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const router = useRouter();
 
   // Autoplay
   useEffect(() => {
@@ -65,69 +68,71 @@ function Hero() {
   };
 
   return (
-<div className="flex flex-col lg:flex-row w-full min-h-[80dvh]">
-  {/* LEFT: Text Content */}
-  <div className="bg-[#DED6CD] w-full lg:w-[42%] flex flex-col items-start justify-center gap-4 px-10 py-12 md:p-20">
-    <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-2 max-w-[70%] flex flex-row items-center justify-center gap-3">
-      <Image
-        src={star}
-        alt="star"
-        className="w-[20px] h-[20px] hidden md:block"
-      />
-      <p className="text-sm max-md:text-white font-medium">
-        100,000+ Happy customers
-      </p>
-    </div>
+    <div className="flex flex-col lg:flex-row w-full min-h-[80dvh]">
+      {/* LEFT: Text Content */}
+      <div className="bg-[#DED6CD] w-full lg:w-[42%] flex flex-col items-start justify-center gap-4 px-10 py-12 md:p-20">
+        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-2 max-w-[70%] flex flex-row items-center justify-center gap-3">
+          <Image
+            src={star}
+            alt="star"
+            className="w-[20px] h-[20px] hidden md:block"
+          />
+          <p className="text-sm max-md:text-white font-medium">
+            100,000+ Happy customers
+          </p>
+        </div>
 
-    <p className="md:text-7xl text-4xl font-medium md:text-[#221A11] text-[#624B31]">
-      <span className="md:text-[#234D35] md:italic">Healing</span> from the
-      inside out
-    </p>
+        <p className="md:text-7xl text-4xl font-medium md:text-[#221A11] text-[#624B31]">
+          <span className="md:text-[#234D35] md:italic">Healing</span> from the
+          inside out
+        </p>
 
-    <div className="flex flex-col sm:flex-row gap-4 w-full">
-      <Button className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-6">
-        Shop now <ChevronRight />
-      </Button>
-      <Button
-        variant="outline"
-        className="border-[#4F4840] flex-grow font-semibold bg-transparent text-lg text-[#221A11] py-6"
-      >
-        Join the ROOT Network
-      </Button>
-    </div>
-  </div>
-
-  {/* RIGHT: Image Slider */}
-  <div className="bg-[#285A37] w-full lg:w-[58%] relative overflow-hidden h-[50vh] lg:h-auto">
-    {SlideImages.map((item, index) => (
-      <div
-        key={item.id}
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
-          index === currentIndex ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <Image
-          src={item.image}
-          alt="slide"
-          className="w-[300px] lg:w-[400px] object-contain"
-        />
+        <div className="flex flex-col sm:flex-row gap-4 w-full">
+          <Button
+            onClick={() => router.push("/allproducts")}
+            className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-6"
+          >
+            Shop now <ChevronRight />
+          </Button>
+          <Button
+            variant="outline"
+            className="border-[#4F4840] flex-grow font-semibold bg-transparent text-lg text-[#221A11] py-6"
+          >
+            Join the ROOT Network
+          </Button>
+        </div>
       </div>
-    ))}
 
-    {/* Dots */}
-    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-      {SlideImages.map((_, idx) => (
-        <div
-          key={idx}
-          className={`h-2 rounded-full transition-all duration-300 ${
-            idx === currentIndex ? "w-6 bg-white" : "w-4 bg-white/50"
-          }`}
-        ></div>
-      ))}
+      {/* RIGHT: Image Slider */}
+      <div className="bg-[#285A37] w-full lg:w-[58%] relative overflow-hidden h-[50vh] lg:h-auto">
+        {SlideImages.map((item, index) => (
+          <div
+            key={item.id}
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={item.image}
+              alt="slide"
+              className="w-[300px] lg:w-[400px] object-contain"
+            />
+          </div>
+        ))}
+
+        {/* Dots */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          {SlideImages.map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? "w-6 bg-white" : "w-4 bg-white/50"
+              }`}
+            ></div>
+          ))}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   );
 }
 

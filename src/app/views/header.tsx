@@ -55,9 +55,11 @@ export default function Header() {
 
         {/* Center Nav */}
         <div className="hidden md:flex flex-end justify-end items-center gap-6">
-          <p className="font-semibold text-sm flex flex-row items-center gap-2">
-            Products <ChevronDown size={20} />
-          </p>
+          <Link href="/allproducts" className="hover:text-[#B69B64]">
+            <p className="font-semibold text-sm flex flex-row items-center gap-2">
+              Products <ChevronDown size={20} />
+            </p>
+          </Link>
           <li className="font-semibold text-sm flex flex-row items-center gap-2">
             <Link href="/signup" className=" text-[#B69B64]">
               Sign up
