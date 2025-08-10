@@ -8,7 +8,9 @@ function Container({
   className?: string;
 }) {
   return (
-    <section className={`max-w-full px-10 md:px-28 py-2 ${className}`}>
+    <section
+      className={`max-w-[1500px] mx-auto flex gap-6 py-8 px-6 ${className}`}
+    >
       {children}
     </section>
   );

@@ -22,6 +22,7 @@ import {
 import ProductsCard from "@/components/productsCard";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Footer from "../views/footer";
+import Container from "@/components/container";
 
 const products = [
   {
@@ -134,124 +135,122 @@ export default function ProductListingPage() {
     <div className="min-h-screen bg-gray-50">
       <Breadcrumbs />
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <div className="flex gap-8">
-          {/* Sidebar */}
-          <aside className="w-64 flex-shrink-0">
-            <div className="bg-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold mb-4">Lifestyle</h2>
+      <Container>
+        {/* Sidebar */}
+        <aside className="w-64 flex-shrink-0">
+          <div className="bg-white rounded-lg p-6">
+            <h2 className="text-lg font-semibold mb-4">Lifestyle</h2>
 
-              <div className="mb-4">
-                <Input placeholder="Search items..." className="text-sm" />
-              </div>
-
-              <div className="space-y-2">
-                {categories.map((category) => (
-                  <Collapsible key={category.name}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-left text-sm hover:text-gray-900">
-                      <span>{category.name}</span>
-                      <Plus className="h-4 w-4" />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <div className="pl-4 py-1 text-sm text-gray-600">
-                        Subcategory items would go here
-                      </div>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ))}
-              </div>
+            <div className="mb-4">
+              <Input placeholder="Search items..." className="text-sm" />
             </div>
-          </aside>
 
-          {/* Main Content */}
-          <main className="flex-1">
-            <div className="bg-white rounded-lg p-6">
-              <div className="mb-6">
-                <h1 className="text-2xl font-bold mb-4">All Products</h1>
+            <div className="space-y-2">
+              {categories.map((category) => (
+                <Collapsible key={category.name}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-left text-sm hover:text-gray-900">
+                    <span>{category.name}</span>
+                    <Plus className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="pl-4 py-1 text-sm text-gray-600">
+                      Subcategory items would go here
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              ))}
+            </div>
+          </div>
+        </aside>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">Filters:</span>
-                    <Select defaultValue="all">
-                      <SelectTrigger className="w-32">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        <SelectItem value="supplements">Supplements</SelectItem>
-                        <SelectItem value="teas">Teas</SelectItem>
-                        <SelectItem value="skincare">Skincare</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+        {/* Main Content */}
+        <main className="flex-1">
+          <div className="bg-white rounded-lg p-6">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold mb-4">All Products</h1>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">Sort by:</span>
-                    <Select defaultValue="popular">
-                      <SelectTrigger className="w-40">
-                        <SelectValue placeholder="Most popular" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="popular">Most popular</SelectItem>
-                        <SelectItem value="price-low">
-                          Price: Low to High
-                        </SelectItem>
-                        <SelectItem value="price-high">
-                          Price: High to Low
-                        </SelectItem>
-                        <SelectItem value="newest">Newest</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">Filters:</span>
+                  <Select defaultValue="all">
+                    <SelectTrigger className="w-32">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="supplements">Supplements</SelectItem>
+                      <SelectItem value="teas">Teas</SelectItem>
+                      <SelectItem value="skincare">Skincare</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
-                <p className="text-sm text-gray-600 mt-4">
-                  Showing 1 - 15 of 200 results
-                </p>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">Sort by:</span>
+                  <Select defaultValue="popular">
+                    <SelectTrigger className="w-40">
+                      <SelectValue placeholder="Most popular" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="popular">Most popular</SelectItem>
+                      <SelectItem value="price-low">
+                        Price: Low to High
+                      </SelectItem>
+                      <SelectItem value="price-high">
+                        Price: High to Low
+                      </SelectItem>
+                      <SelectItem value="newest">Newest</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
-              {/* Product Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {products.map((product) => (
-                  <ProductsCard
-                    name={product.name}
-                    category={product.category}
-                    price={product.price}
-                    reviews={product.reviews}
-                    rating={product.rating}
-                  />
+              <p className="text-sm text-gray-600 mt-4">
+                Showing 1 - 15 of 200 results
+              </p>
+            </div>
+
+            {/* Product Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {products.map((product) => (
+                <ProductsCard
+                  name={product.name}
+                  category={product.category}
+                  price={product.price}
+                  reviews={product.reviews}
+                  rating={product.rating}
+                />
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="flex items-center justify-center gap-2">
+              <Button variant="outline" size="sm">
+                <ChevronLeft className="h-4 w-4" />
+                Previous
+              </Button>
+
+              <div className="flex gap-1">
+                {[1, 2, 3, "...", 10, 11, 12].map((page, index) => (
+                  <Button
+                    key={index}
+                    variant={page === 3 ? "default" : "outline"}
+                    size="sm"
+                    className="w-8 h-8 p-0"
+                  >
+                    {page}
+                  </Button>
                 ))}
               </div>
 
-              {/* Pagination */}
-              <div className="flex items-center justify-center gap-2">
-                <Button variant="outline" size="sm">
-                  <ChevronLeft className="h-4 w-4" />
-                  Previous
-                </Button>
-
-                <div className="flex gap-1">
-                  {[1, 2, 3, "...", 10, 11, 12].map((page, index) => (
-                    <Button
-                      key={index}
-                      variant={page === 3 ? "default" : "outline"}
-                      size="sm"
-                      className="w-8 h-8 p-0"
-                    >
-                      {page}
-                    </Button>
-                  ))}
-                </div>
-
-                <Button variant="outline" size="sm">
-                  Next
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </div>
+              <Button variant="outline" size="sm">
+                Next
+                <ChevronRight className="h-4 w-4" />
+              </Button>
             </div>
-          </main>
-        </div>
-      </div>
+          </div>
+        </main>
+      </Container>
     </div>
   );
 }

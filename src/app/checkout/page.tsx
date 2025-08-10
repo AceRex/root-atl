@@ -1,18 +1,21 @@
+"use client";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Checkout() {
+  const router = useRouter();
   return (
     <>
       <Breadcrumbs />
-      <Container className="flex flex-row gap-10">
-        <Container className=" w-full md:w-[60%] !p-0 flex flex-col gap-10">
-          <Container className="border rounded-lg !p-6 w-full -m-0">
+      <Container className="gap-6">
+        <Container className=" w-full md:w-[60%] !p-0 flex flex-col gap-6">
+          <Container className="max-h-[600px] overflow-auto border rounded-lg !p-6 w-full -m-0">
             <div className="flex flex-row items-center gap-2">
               <h2 className="font-semibold text-xl">Order Summary</h2>
               <div className="rounded-full flex flex-row font-semibold text-xl items-center w-8 h-8 text-white bg-[#B69B64]">
@@ -62,12 +65,12 @@ function Checkout() {
             </div>
           </Container>
         </Container>
-        <Container className="border rounded-lg !p-8 w-full md:w-[40%]">
+        <Container className="flex-col border rounded-lg w-full md:w-[40%]">
           <div className="flex flex-row items-center p-2">
             <h2 className="font-semibold text-xl">Payment Information</h2>
             <div className="rounded-full"></div>
           </div>
-          <div className="m-auto flex flex-col gap-2 p-4 border-b ">
+          <div className="m-auto flex flex-col gap-2 p-4 border-b w-full ">
             <h3 className="font-semibold">Apply Discount</h3>
             <div className="flex flex-row items-center gap-3">
               <Input
@@ -79,7 +82,7 @@ function Checkout() {
               </Button>
             </div>
           </div>
-          <div className="m-auto flex flex-col gap-4 p-4 border-b">
+          <div className="m-auto flex flex-col gap-4 p-4 border-b w-full">
             <h3 className="font-semibold">Pay With</h3>
             <RadioGroup defaultValue="option-one">
               <div className="flex items-center space-x-2">
@@ -96,7 +99,7 @@ function Checkout() {
               </div>
             </RadioGroup>
           </div>
-          <div className="m-auto flex flex-col gap-4 p-4 border-b">
+          <div className="m-auto w-full flex flex-col gap-4 p-4 border-b">
             <h3 className="font-semibold">Enter Card Information</h3>
             <div className="w-full flex flex-col gap-2">
               <Label htmlFor="pay-on-delivery" className="text-base">
@@ -125,7 +128,7 @@ function Checkout() {
               </div>
             </div>
           </div>
-          <div className="m-auto flex flex-col gap-4 p-4 border-b">
+          <div className="m-auto w-full flex flex-col gap-4 p-4 border-b">
             <div className="w-full flex flex-flex items-center justify-between gap-2">
               <Label htmlFor="card-number" className="text-base">
                 Sub Total
@@ -145,13 +148,16 @@ function Checkout() {
               <p>$0.00</p>
             </div>
           </div>
-          <div className="m-auto flex flex-row items-center justify-between gap-4 p-4">
+          <div className="m-auto  w-full flex flex-row items-center justify-between gap-4 p-4">
             <Label htmlFor="card-number" className="text-base">
               Total
             </Label>
             <p className="font-semibold text-lg">$250.32</p>
           </div>
-          <Button className="h-12 w-full m-auto rounded-4xl text-xl bg-[#B69B64] text-white">
+          <Button
+            onClick={() => router.push("/dashboard")}
+            className="h-12 w-full font-semibold m-auto rounded-4xl text-xl bg-[#B69B64] text-white"
+          >
             $250.32
           </Button>
         </Container>

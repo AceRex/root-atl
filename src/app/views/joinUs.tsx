@@ -8,7 +8,7 @@ import Image from "next/image";
 function JoinUs() {
   return (
     <div className="my-24 max-w-[90%] mx-auto">
-      <Container className="!py-0 !px-0 overflow-hidden rounded-lg bg-gradient-to-tl from-[#7C7661] to-[#9F967A] flex flex-col lg:flex-row flex-wrap items-center justify-center">
+      <Container className="!py-0 !px-0 overflow-hidden rounded-lg bg-gradient-to-tl from-[#7C7661] to-[#9F967A] max-sm:flex-col">
         <div className="lg:w-1/2 max-md:px-5 flex flex-col lg:flex-row items-start lg:items-center gap-4 justify-between py-12 lg:py-24">
           <p className="text-white text-3xl lg:text-4xl font-medium lg:pl-28">
             Join the ROOTS Network and Start Earning

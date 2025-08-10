@@ -49,7 +49,7 @@ const data = [
 function BestSelling() {
   const route = useRouter();
   return (
-    <Container className="my-12">
+    <Container className="flex-col my-12">
       <div className="flex flex-row justify-between items-center">
         <h4 className="text-2xl font-semibold">Best Sellings</h4>
         <div className="w-10">

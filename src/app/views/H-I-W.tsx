@@ -1,12 +1,17 @@
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, PiggyBankIcon, PointerIcon, Share2Icon } from "lucide-react";
+import {
+  ChevronRight,
+  PiggyBankIcon,
+  PointerIcon,
+  Share2Icon,
+} from "lucide-react";
 import React from "react";
 
 function HowItWorks() {
   return (
     <div className="bg-[#EDEDED]">
-      <Container className="py-24 text-center">
+      <Container className="flex-col items-center py-12 text-center">
         <h3 className="text-2xl font-semibold mb-3">
           How It Works (MLM Model)
         </h3>
@@ -14,7 +19,7 @@ function HowItWorks() {
           ROOTS ATL empowers individuals through education, treatment, and
           continuous support across their entire health journey.
         </p>
-        <div className="w-full mt-20 flex lg:flex-row flex-col max-md:space-y-12 flex-wrap justify-between items-center">
+        <div className="w-full mt-2 flex lg:flex-row flex-col max-md:space-y-12 flex-wrap justify-between items-center">
           <div className="lg:w-1/3 w-full lg:px-14 flex flex-col justify-center gap-3 text-center items-center">
             <PointerIcon size={30} />
             <h4 className="text-lg font-semibold">Subscribe</h4>
