@@ -21,7 +21,6 @@ export default function HomePage() {
         <BestSelling />
         <FAQ />
         <JoinUs />
-        <Footer />
       </div>
     </div>
   );

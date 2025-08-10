@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/collapsible";
 import ProductsCard from "@/components/productsCard";
 import Breadcrumbs from "@/components/breadcrumbs";
+import Footer from "../views/footer";
 
 const products = [
   {
