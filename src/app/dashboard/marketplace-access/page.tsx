@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/collapsible";
 import ProductsCard from "@/components/productsCard";
 import Breadcrumbs from "@/components/breadcrumbs";
-import Footer from "../views/footer";
 import Container from "@/components/container";
 
 const products = [
@@ -117,16 +116,6 @@ const products = [
   },
 ];
 
-const categories = [
-  { name: "All", count: null },
-  { name: "Supplement for men", count: null },
-  { name: "Supplement for women", count: null },
-  { name: "Teas", count: null },
-  { name: "Smart gadgets", count: null },
-  { name: "Kids sessions", count: null },
-  { name: "Skincare", count: null },
-];
-
 export default function ProductListingPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -134,41 +123,11 @@ export default function ProductListingPage() {
   return (
     <div className="min-h-screen">
       <Breadcrumbs />
-
       <Container>
-        {/* Sidebar */}
-        <aside className="w-64 flex-shrink-0">
-          <div className="bg-white rounded-lg p-6">
-            <h2 className="text-lg font-semibold mb-4">Lifestyle</h2>
-
-            <div className="mb-4">
-              <Input placeholder="Search items..." className="text-sm" />
-            </div>
-
-            <div className="space-y-2">
-              {categories.map((category) => (
-                <Collapsible key={category.name}>
-                  <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-left text-sm hover:text-gray-900">
-                    <span>{category.name}</span>
-                    <Plus className="h-4 w-4" />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="pl-4 py-1 text-sm text-gray-600">
-                      Subcategory items would go here
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              ))}
-            </div>
-          </div>
-        </aside>
-
         {/* Main Content */}
         <main className="flex-1">
           <div className="bg-white rounded-lg p-6">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-4">All Products</h1>
-
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-gray-600">Filters:</span>

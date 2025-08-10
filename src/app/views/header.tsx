@@ -55,7 +55,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <Container className="py-3 min-h-[84px] items-center justify-between">
+        <Container className="min-h-[60px] items-center justify-between">
           {/* Logo */}
           <Link
             href={"/"}

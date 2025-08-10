@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/components/container";
 import React from "react";
 import Logo from "@/assets/logo.png";
@@ -5,8 +6,13 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+  const pathname = usePathname();
+  if (pathname.includes("/dashboard")) {
+    return null;
+  }
   return (
     <footer className="bg-[#EDEDED] py-8">
       <Container className="flex flex-row flex-wrap justify-between">
@@ -81,11 +87,7 @@ function Footer() {
           </ul>
         </div>
         <div className="lg:w-[35%] w-full max-md:my-12 space-y-7">
-          <Image
-            src={Logo}
-            alt="logo"
-            className="w-auto h-[40px]"
-          />
+          <Image src={Logo} alt="logo" className="w-auto h-[40px]" />
           <p className="text-sm">
             Get the latest updates about ROOTS ATL new features and product
             updates.
