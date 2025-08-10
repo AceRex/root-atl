@@ -151,10 +151,10 @@ export default function DashboardPage() {
                 <div className="flex flex-row gap-3 items-center">
                   <Avatar className="w-10 h-10">
                     <AvatarImage src="/Hero Section (1).png" alt="avatar" />
-                    <AvatarFallback className="text-sm">U</AvatarFallback>
+                    <AvatarFallback className="text-sm">MB</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col my-4">
-                    <p className="text-base font-semibold">User Name</p>
+                    <p className="text-base font-semibold">Mike Borolls</p>
                     <p className="text-xs text-neutral-500">Me</p>
                   </div>
                 </div>
@@ -296,7 +296,9 @@ export default function DashboardPage() {
       {/* Perfect Start progress */}
       <Card className="mb-6">
         <CardHeader>
-          <h2 className="text-3xl font-semibold text-center capitalize">My perfect start</h2>
+          <h2 className="text-3xl font-semibold text-center capitalize">
+            My perfect start
+          </h2>
 
           <p className="text-center text-sm text-slate-700">
             Orders made through your referral link
