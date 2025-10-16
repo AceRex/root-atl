@@ -16,14 +16,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <div className="fixed h-[7.5rem] w-full z-50">
+      <body className={`${inter.variable} antialiased`}>
         <Header />
-      </div>
-      <body className={`${inter.variable} antialiased`}>{children}</body>
-      <Footer />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

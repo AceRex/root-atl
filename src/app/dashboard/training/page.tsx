@@ -18,8 +18,8 @@ function Training() {
           </div>
           <Hero />
           <div className="grid grid-cols-2 gap-8">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
-              <TrainingCard />
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+              <TrainingCard key={index} />
             ))}
           </div>
         </Card>

@@ -185,8 +185,8 @@ export default function DashboardPage() {
             />
           </div>
           <div className="flex flex-row items-center justify-between my-8">
-            {cat.map((t) => (
-              <div className="flex flex-col items-start">
+            {cat.map((t, index) => (
+              <div key={index} className="flex flex-col items-start">
                 <p className="text-bold text-xl capitalize">{t.name}</p>
                 <p className="text-semibold text-sm ">{t.value} points</p>
               </div>
@@ -235,8 +235,9 @@ export default function DashboardPage() {
           Orders made through your referral link
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {products.map((product) => (
+          {products.map((product, index) => (
             <ProductsCard
+              key={index}
               name={product.name}
               category={product.category}
               price={product.price}
@@ -352,8 +353,9 @@ export default function DashboardPage() {
       <Card className="mb-2 py-12 px-4">
         <h2 className="text-3xl font-semibold text-center">What's New</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {products.map((product) => (
+          {products.map((product, index) => (
             <ProductsCard
+              key={index}
               name={product.name}
               category={product.category}
               price={product.price}

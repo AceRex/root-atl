@@ -53,8 +53,8 @@ function ProductsCard({
             <div className="flex flex-row items-start justify-between">
               <h3 className=" text-[#221A11] text-lg mb-1">{name}</h3>
               <p className="flex flex-row text-sm font-semibold items-start">
-                <p>$</p>
-                <p className="text-2xl font-bold">{price.toFixed(2)}</p>
+                <span>$</span>
+                <span className="text-2xl font-bold">{price.toFixed(2)}</span>
               </p>
             </div>
             <p className="text-xs capitalize text-gray-600 my-2">{category}</p>

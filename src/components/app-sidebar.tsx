@@ -1,3 +1,4 @@
+"use client";
 import {
   BadgeDollarSign,
   Box,
@@ -25,6 +26,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 // Menu items.
 const items = [
@@ -71,22 +74,41 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+
   return (
     <Sidebar className="py-[8rem]">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="py-[2rem]">
-              {items.map((item) => (
-                <SidebarMenuItem className="py-1" key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => {
+                const isActive = pathname === item.url;
+
+                return (
+                  <SidebarMenuItem
+                    key={item.title}
+                    className={cn(
+                      "py-1 rounded-lg transition-colors"
+                    )}
+                  >
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={cn(
+                        "w-full",
+                        isActive &&
+                          "bg-primary text-primary font-medium hover:bg-primary"
+                      )}
+                    >
+                      <a href={item.url}>
+                        <item.icon className={cn(isActive && "text-primary")} />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

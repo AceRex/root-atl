@@ -89,6 +89,7 @@ function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-4 w-full">
           <Button
+          
             onClick={() => router.push("/allproducts")}
             className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-6"
           >
