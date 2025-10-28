@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 
 function Footer() {
   const pathname = usePathname();
-  if (pathname.includes("/dashboard")) {
+  if (pathname.includes("/dashboard") || pathname.includes("/admin")) {
     return null;
   }
   return (

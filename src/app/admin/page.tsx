@@ -1,9 +1,19 @@
-function Page() {
-  return (
-    <div className="min-h-[100dvh] pt-[5rem] lg:pt-[7.5rem] bg-[#FAF9F6]">
-      <p>H3llo</p>
-    </div>
-  );
-}
+"use client";
 
-export default Page;
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    if (isAuthenticated) {
+      router.push("/admin/dashboard");
+    } else {
+      router.push("/admin/login");
+    }
+  }, [router]);
+
+  return null;
+}

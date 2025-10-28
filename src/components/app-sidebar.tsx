@@ -73,6 +73,75 @@ const items = [
   },
 ];
 
+// Admin Menu items.
+const AdminItems = [
+  {
+    title: "Dashboard",
+    url: "/admin/dashboard",
+    icon: Grip,
+  },
+  {
+    title: "Users & Sellers",
+    url: "/admin/dashboard/users",
+    icon: BriefcaseBusinessIcon,
+  },
+  {
+    title: "Subscription Plans",
+    url: "/admin/dashboard/subscriptions",
+    icon: Box,
+  },
+  {
+    title: "Order Sales",
+    url: "/admin/dashboard/order",
+    icon: BadgeDollarSign,
+  },
+  {
+    title: "Referral Network",
+    url: "/admin/dashboard/referral",
+    icon: ChartCandlestickIcon,
+  },
+  {
+    title: "Products & Inventory",
+    url: "/admin/dashboard/products",
+    icon: ShieldHalf,
+  },
+  {
+    title: "Payouts & Commission",
+    url: "/admin/dashboard/payouts",
+    icon: School,
+  },
+  {
+    title: "Training & Content",
+    url: "/admin/dashboard/training",
+    icon: User2,
+  },
+  {
+    title: "Support Tickets",
+    url: "/admin/dashboard/support",
+    icon: User2,
+  },
+  {
+    title: "Website CMS Editor",
+    url: "/admin/dashboard/website-cms",
+    icon: User2,
+  },
+  {
+    title: "Email Marketing",
+    url: "/admin/dashboard/email-marketing",
+    icon: User2,
+  },
+  {
+    title: "Settings & Integrations",
+    url: "/admin/dashboard/setting",
+    icon: User2,
+  },
+  {
+    title: "Admin Activity Logs",
+    url: "/admin/dashboard/admin-activity-logs",
+    icon: User2,
+  },
+];
+
 export function AppSidebar() {
   const pathname = usePathname();
 
@@ -88,9 +157,48 @@ export function AppSidebar() {
                 return (
                   <SidebarMenuItem
                     key={item.title}
-                    className={cn(
-                      "py-1 rounded-lg transition-colors"
-                    )}
+                    className={cn("py-1 rounded-lg transition-colors")}
+                  >
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={cn(
+                        "w-full",
+                        isActive &&
+                          "bg-primary text-primary font-medium hover:bg-primary"
+                      )}
+                    >
+                      <a href={item.url}>
+                        <item.icon className={cn(isActive && "text-primary")} />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  );
+}
+export function AdminSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <Sidebar className="py-[4rem]">
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="py-[2rem]">
+              {AdminItems.map((item) => {
+                const isActive = pathname === item.url;
+
+                return (
+                  <SidebarMenuItem
+                    key={item.title}
+                    className={cn("py-1 rounded-lg transition-colors")}
                   >
                     <SidebarMenuButton
                       asChild
