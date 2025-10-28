@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DotsThreeVerticalIcon } from "@phosphor-icons/react/dist/ssr";
 
 interface TableColumn {
   key: string;
@@ -13,21 +14,19 @@ interface TableViewProps {
   totalPages: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;
-  onEdit?: (row: any) => void;
 }
 
-export default function TableView({ 
-  heading, 
-  data, 
-  totalPages, 
+export default function TableView({
+  heading,
+  data,
+  totalPages,
   currentPage: externalCurrentPage,
   onPageChange,
-  onEdit
 }: TableViewProps) {
   const [internalCurrentPage, setInternalCurrentPage] = useState(1);
-  
+
   const currentPage = externalCurrentPage ?? internalCurrentPage;
-  
+
   const handlePageChange = (page: number) => {
     if (onPageChange) {
       onPageChange(page);
@@ -38,39 +37,39 @@ export default function TableView({
 
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
-    
+
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
       pages.push(1, 2, 3);
-      
+
       if (currentPage > 4) {
-        pages.push('...');
+        pages.push("...");
       }
-      
+
       if (currentPage > 3 && currentPage < totalPages - 2) {
         pages.push(currentPage);
       }
-      
+
       if (currentPage < totalPages - 3) {
-        pages.push('...');
+        pages.push("...");
       }
-      
+
       pages.push(totalPages - 2, totalPages - 1, totalPages);
     }
-    
+
     return [...new Set(pages)];
   };
 
   const renderCellContent = (column: TableColumn, row: any) => {
     const value = row[column.key];
-    
+
     if (column.render) {
       return column.render(value, row);
     }
-    
+
     return value;
   };
 
@@ -81,23 +80,20 @@ export default function TableView({
           <thead className="border-b border-gray-200 bg-gray-50">
             <tr className="text-left">
               {heading.map((column) => (
-                <th 
-                  key={column.key} 
+                <th
+                  key={column.key}
                   className="px-6 py-4 text-sm font-medium text-gray-600 whitespace-nowrap"
                 >
                   {column.label}
                 </th>
               ))}
-              {onEdit && (
-                <th className="px-6 py-4 text-sm font-medium text-gray-600"></th>
-              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {data.length === 0 ? (
               <tr>
-                <td 
-                  colSpan={heading.length + (onEdit ? 1 : 0)} 
+                <td
+                  colSpan={heading.length}
                   className="px-6 py-12 text-center text-sm text-gray-500"
                 >
                   No data available
@@ -105,22 +101,18 @@ export default function TableView({
               </tr>
             ) : (
               data.map((row, rowIndex) => (
-                <tr key={rowIndex} className="hover:bg-gray-50 transition-colors">
+                <tr
+                  key={rowIndex}
+                  className="hover:bg-gray-50 transition-colors"
+                >
                   {heading.map((column) => (
-                    <td key={column.key} className="px-6 py-4 text-sm text-gray-700">
+                    <td
+                      key={column.key}
+                      className="px-6 py-4 text-sm text-gray-700"
+                    >
                       {renderCellContent(column, row)}
                     </td>
                   ))}
-                  {onEdit && (
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() => onEdit(row)}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                  )}
                 </tr>
               ))
             )}
@@ -142,15 +134,17 @@ export default function TableView({
           <div className="flex items-center gap-1">
             {getPageNumbers().map((page, index) => (
               <React.Fragment key={index}>
-                {page === '...' ? (
+                {page === "..." ? (
                   <span className="px-3 py-2 text-sm text-gray-500">...</span>
                 ) : (
                   <button
-                    onClick={() => typeof page === 'number' && handlePageChange(page)}
+                    onClick={() =>
+                      typeof page === "number" && handlePageChange(page)
+                    }
                     className={`min-w-[40px] px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                       currentPage === page
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     {page}
@@ -161,7 +155,9 @@ export default function TableView({
           </div>
 
           <button
-            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+            onClick={() =>
+              handlePageChange(Math.min(totalPages, currentPage + 1))
+            }
             disabled={currentPage === totalPages}
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >

@@ -1,4 +1,5 @@
 "use client";
+import { Modal } from "@/components/modal";
 import TableView from "@/components/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,9 +12,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, TrayArrowUpIcon } from "@phosphor-icons/react";
 import { Plus, SlashIcon } from "lucide-react";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DotsThreeVerticalIcon } from "@phosphor-icons/react/dist/ssr";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 
 function Breadcrumbs() {
   return (
@@ -128,13 +142,27 @@ function Page() {
       label: "Stock",
       render: (value: any) => (
         <span
-          className={`px-3 py-1 rounded-full ${
+          className={`px-3 py-1 text-xs rounded-full ${
             value === "Active"
               ? "bg-green-100 text-green-700"
               : "bg-red-100 text-red-700"
           }`}
         >
           {value}
+        </span>
+      ),
+    },
+    {
+      key: "action",
+      label: "Action",
+      render: (value: any) => (
+        <span className="cursor-pointer">
+          <Button
+            variant="outline"
+            className="border border-neutral-500 px-3 py-1"
+          >
+            Edit
+          </Button>
         </span>
       ),
     },
@@ -210,7 +238,7 @@ function Page() {
           </div>
           <div className="flex items-center">
             <Tabs defaultValue="all" className="w-full">
-              <TabsList className="!h-[50px] !w-[40%] data-[active]:text-amber-500">
+              <TabsList className="!h-[50px] !w-[40%] ">
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="active">Active</TabsTrigger>
                 <TabsTrigger value="drafts">Drafts</TabsTrigger>
@@ -223,7 +251,6 @@ function Page() {
                   totalPages={2}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
-                  onEdit={(row) => console.log("Edit", row)}
                 />
               </TabsContent>
               <TabsContent value="active">
@@ -233,7 +260,6 @@ function Page() {
                   totalPages={2}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
-                  onEdit={(row) => console.log("Edit", row)}
                 />
               </TabsContent>
               <TabsContent value="drafts">
@@ -243,7 +269,6 @@ function Page() {
                   totalPages={2}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
-                  onEdit={(row) => console.log("Edit", row)}
                 />
               </TabsContent>
               <TabsContent value="archive">
@@ -253,13 +278,151 @@ function Page() {
                   totalPages={2}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
-                  onEdit={(row) => console.log("Edit", row)}
                 />
               </TabsContent>
             </Tabs>
           </div>
         </div>
       </div>
+      <Modal
+        open={openCreateProductModal}
+        onOpenChange={setOpenCreateProductModal}
+        heading="Create New Product"
+        description="Enter the details of the new product."
+        className="min-w-xl"
+      >
+        <form className="py-4 w-full flex flex-col gap-4">
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Product name
+              </label>
+              <Input
+                type="text"
+                placeholder="product name"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                SKU
+              </label>
+              <Input
+                type="text"
+                placeholder="SKU"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Memory Price
+              </label>
+              <Input
+                type="number"
+                placeholder="0.00"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Retail Price
+              </label>
+              <Input
+                type="text"
+                placeholder="SKU"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Category
+              </label>
+              <Select>
+                <SelectTrigger className="w-full !h-10 border-slate-700">
+                  <SelectValue placeholder="Theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Description
+              </label>
+              <Input
+                type="text"
+                placeholder="description"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Inventory Quantity
+              </label>
+              <Input
+                type="number"
+                placeholder="0"
+                //  value={email}
+                //  onChange={(e) => setEmail(e.target.value)}
+                className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-4 items-center">
+            <div className="space-y-2 w-full">
+              <label className="text-sm font-medium text-neutral-500">
+                Product Image
+              </label>
+              <div className="border-slate-700 flex flex-col h-40 p-2 w-full border rounded-lg items-center justify-center">
+                <TrayArrowUpIcon
+                  weight="duotone"
+                  size={35}
+                  className="text-[#B69B64]"
+                />
+                <p className="text-sm text-neutral-400">
+                  Drag and drop images here or click to upload
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex w-full flex-row gap-8 items-center justify-between">
+            <Button
+              variant={"outline"}
+              onClick={handleCreateProduct}
+              className="flex-grow border font-semibold text-sm text-neutral-700 py-4 cursor-pointer"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreateProduct}
+              className="bg-[#B69B64] flex-grow font-semibold border-0 text-sm text-white py-4 cursor-pointer"
+            >
+              Add Products
+            </Button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
