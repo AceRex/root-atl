@@ -7,8 +7,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    if (isAuthenticated) {
+    const isUser = localStorage.getItem("user");
+    if (isUser) {
       router.push("/admin/dashboard");
     } else {
       router.push("/admin/login");

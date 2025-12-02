@@ -28,6 +28,12 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import {
+  FilmReelIcon,
+  GearIcon,
+  HeadsetIcon,
+  ListStarIcon,
+} from "@phosphor-icons/react/dist/ssr";
 
 // Menu items.
 const items = [
@@ -91,7 +97,7 @@ const AdminItems = [
     icon: Box,
   },
   {
-    title: "Order Sales",
+    title: "Order & Sales",
     url: "/admin/dashboard/order",
     icon: BadgeDollarSign,
   },
@@ -113,32 +119,32 @@ const AdminItems = [
   {
     title: "Training & Content",
     url: "/admin/dashboard/training",
-    icon: User2,
+    icon: FilmReelIcon,
   },
   {
     title: "Support Tickets",
     url: "/admin/dashboard/support",
-    icon: User2,
+    icon: HeadsetIcon,
   },
-  {
-    title: "Website CMS Editor",
-    url: "/admin/dashboard/website-cms",
-    icon: User2,
-  },
-  {
-    title: "Email Marketing",
-    url: "/admin/dashboard/email-marketing",
-    icon: User2,
-  },
+  // {
+  //   title: "Website CMS Editor",
+  //   url: "/admin/dashboard/website-cms",
+  //   icon: User2,
+  // },
+  // {
+  //   title: "Email Marketing",
+  //   url: "/admin/dashboard/email-marketing",
+  //   icon: User2,
+  // },
   {
     title: "Settings & Integrations",
     url: "/admin/dashboard/setting",
-    icon: User2,
+    icon: GearIcon,
   },
   {
     title: "Admin Activity Logs",
     url: "/admin/dashboard/admin-activity-logs",
-    icon: User2,
+    icon: ListStarIcon,
   },
 ];
 
@@ -191,14 +197,14 @@ export function AdminSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="py-[2rem]">
+            <SidebarMenu className="py-8">
               {AdminItems.map((item) => {
                 const isActive = pathname === item.url;
 
                 return (
                   <SidebarMenuItem
                     key={item.title}
-                    className={cn("py-1 rounded-lg transition-colors")}
+                    className={cn("rounded-lg transition-colors py-1")}
                   >
                     <SidebarMenuButton
                       asChild
@@ -206,7 +212,7 @@ export function AdminSidebar() {
                       className={cn(
                         "w-full",
                         isActive &&
-                          "bg-primary text-primary font-medium hover:bg-primary"
+                          "bg-neutral-400 text-primary font-medium hover:bg-primary"
                       )}
                     >
                       <a href={item.url}>

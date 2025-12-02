@@ -16,6 +16,7 @@ import {
 import { AlertCircle } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
+import { useAdminLogin } from "@/services/admin";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,6 +24,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { mutate } = useAdminLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,12 +45,7 @@ export default function LoginPage() {
       return;
     }
 
-    // Simulate authentication
-    setTimeout(() => {
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", email);
-      router.push("/admin/dashboard");
-    }, 500);
+    mutate({ email, password });
   };
 
   return (
@@ -111,12 +109,6 @@ export default function LoginPage() {
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-
-            <div className="mt-6 pt-6 border-t border-slate-800">
-              <p className="text-xs text-slate-500 text-center">
-                Demo credentials: Use any email and password to login
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>

@@ -415,11 +415,11 @@ function Page() {
                           </div>
                         </TabsContent>
                         <TabsContent value="subscription" className="p-1">
-                          <div className="flex flex-col gap-4 rounded-lg border border-neutral-300 p-6">
+                          <div className="flex flex-col gap-4 rounded-lg bg-[#B69B64] p-6">
                             <div className="flex flex-row items-center justify-between gap-4">
                               <h5
                                 className={cn(
-                                  "font-bold text-3xl text-[#B69B64] tracking-tight"
+                                  "font-bold text-3xl text-white tracking-tight"
                                 )}
                               >
                                 Pro Plan
@@ -428,27 +428,27 @@ function Page() {
                                 Active
                               </Badge>
                             </div>
-                            <p className="text-7xl font-bold tracking-tight">
+                            <p className="text-7xl font-bold tracking-tight text-white">
                               $2k
-                              <span className="text-lg font-medium tracking-normal text-neutral-400">
+                              <span className="text-lg font-medium tracking-normal text-white">
                                 {" "}
                                 /month
                               </span>
                             </p>
-                            <p className=" -mt-4 font-medium tracking-normal text-neutral-400">
+                            <p className=" -mt-4 font-medium tracking-normal text-white">
                               Renews on 30th, June 2026
                             </p>
                             <div className="flex flex-col gap-4 mt-4">
-                              <div className="bg-[#B69B64] text-white px-4 py-2  rounded-lg">
+                              <div className="text-[#B69B64] bg-white px-4 py-2  rounded-lg">
                                 <h4>Plan Benefits</h4>
                               </div>
-                              <ul className="list-disc list-inside flex flex-col gap-2">
+                              <ul className="list-disc list-inside flex flex-col gap-2 text-white">
                                 <li>Full Access to product catalog</li>
                                 <li>Level 3 commissions</li>
                                 <li>Priority customer support</li>
                               </ul>
                               <div className="flex flex-row gap-4 mt-4 w-full">
-                                <Button className="w-1/2 bg-[#B69B64] text-white hover:bg-[#9C7A4C]">
+                                <Button className="w-1/2 bg-neutral-700 text-white hover:bg-[#9C7A4C]">
                                   <ArrowsClockwiseIcon />
                                   Change Plan
                                 </Button>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./views/header";
 import Footer from "../app/views/footer";
+import Providers from "./providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -16,13 +17,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
