@@ -1,28 +1,43 @@
+import { useAdminAuth } from "@/providers/adminProvider";
 import axiosInstance from "@/utils/axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+
+interface Login {
+  email: string;
+  password: string;
+}
 
 export const useAdminLogin = () => {
-  const router = useRouter();
+  const { login } = useAdminAuth();
 
   return useMutation({
     mutationFn: async (data: Login) => {
       const response = await axiosInstance.post(`/user/login`, data);
-      localStorage.setItem("user", JSON.stringify(response.data?.data));
       return response.data;
     },
     onSuccess: (data) => {
       toast.success("Login successful");
-      router.push("/admin/dashboard/products");
+      // Store user data with token
+      login(data);
     },
     onError: (error: any) => {
       const errorMessage =
         error?.response?.data?.message ||
         error?.message ||
-        "Failed to login account. Please try again.";
+        "Failed to login. Please try again.";
 
-      toast.error("Login failed");
+      toast.error(errorMessage);
     },
   });
 };
+
+export const useGetProducts = () =>
+  useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/product`);
+      if (!res.data.success) throw new Error(res.data.message);
+      return res.data.user;
+    },
+  });

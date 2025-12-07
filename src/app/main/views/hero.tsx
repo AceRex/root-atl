@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import star from "@/assets/star.png";
 import Image from "next/image";
-import { Button } from "../../components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Rad_berries from "@/assets/products/1bd18ebf8c59505166e682537732b3f9a5c328d5.png";
 import snail_gel from "@/assets/products/1e43bbea1408c0182474afbe0857d71393a157e8.png";
@@ -18,6 +17,7 @@ import slimTea from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.
 import immunDrop from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75c.png";
 import femme from "@/assets/products/fcec0e9f46b97d750fb3f9bc76de94069aa9e670.png";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const SlideImages: { id: number; image: any }[] = [
   { id: 1, image: Rad_berries },

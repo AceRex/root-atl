@@ -3,15 +3,14 @@
 import Image from "next/image";
 import {
   BellIcon,
+  CodeSimpleIcon,
   MagnifyingGlassIcon,
   NotificationIcon,
   PhoneIcon,
   ShoppingCartSimpleIcon,
 } from "@phosphor-icons/react";
 import Logo from "@/assets/logo.png";
-import Container from "../../components/container";
 import { AlignJustify, ChevronDown } from "lucide-react";
-import { Input } from "../../components/ui/input";
 import Link from "next/link";
 import {
   Sheet,
@@ -32,12 +31,16 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import Container from "@/components/container";
+import { useAdminAuth } from "@/providers/adminProvider";
 
 export default function Header() {
   const router = useRouter();
   const params = usePathname();
   const isAdmin = params.startsWith("/admin");
   const isAdminLoginPage = params.includes("/admin/login");
+  const { user } = useAdminAuth();
 
   if (isAdminLoginPage) {
     return null;
@@ -127,11 +130,18 @@ export default function Header() {
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
-                    <AvatarFallback>AN</AvatarFallback>
+                    <AvatarFallback>
+                      {user?.firstName?.[0]}
+                      {user?.lastName?.[0]}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <p className="font-semibold text-sm">Admin Name</p>
-                    <p className="text-xs text-neutral-500">Super Admin</p>
+                    <p className="font-semibold text-sm">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-neutral-500">
+                      {user?.user_role}
+                    </p>
                   </div>
                 </div>
               </div>

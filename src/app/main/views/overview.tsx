@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "../../components/container";
 import Image from "next/image";
 import bg_image from "@/assets/00a8b1713646dbcd594d5a4deab25fecc1c50e3b.png";
 import {
@@ -8,6 +7,7 @@ import {
   CheckCircle2,
   CheckCircle2Icon,
 } from "lucide-react";
+import Container from "@/components/container";
 
 const overView = [
   "Product Store (Supplements, Teas, Skincare)",

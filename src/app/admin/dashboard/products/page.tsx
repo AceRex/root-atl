@@ -28,6 +28,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import { useGetProducts } from "@/services/admin";
 
 function Breadcrumbs() {
   return (
@@ -170,6 +171,10 @@ function Page() {
 
   const [page, setPage] = useState(1);
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false);
+  const [per_page, setPerPage] = useState("10");
+  const { data } = useGetProducts();
+
+  console.log(data, "data");
 
   const handleCreateProduct = () => {
     setOpenCreateProductModal(!openCreateProductModal);
