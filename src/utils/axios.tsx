@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 const axiosInstance = axios.create({
-  baseURL: "https://rootatl.antstruct.com/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 30000,
 });
 
@@ -19,15 +19,15 @@ function debugLog(message: string, data?: any) {
 function getAuthToken(): string | null {
   try {
     debugLog("=== Reading token from storage ===");
-    
+
     // Check auth key
     const authStr = localStorage.getItem("auth");
     debugLog("auth key content:", authStr);
-    
+
     if (authStr) {
       const auth = JSON.parse(authStr);
       debugLog("Parsed auth object:", auth);
-      
+
       // Check all possible token paths
       if (auth?.token) {
         debugLog("✅ Found token at: auth.token");
@@ -50,11 +50,11 @@ function getAuthToken(): string | null {
     // Check user key
     const userStr = localStorage.getItem("user");
     debugLog("user key content:", userStr);
-    
+
     if (userStr) {
       const user = JSON.parse(userStr);
       debugLog("Parsed user object:", user);
-      
+
       if (user?.token) {
         debugLog("✅ Found token at: user.token");
         return user.token;
@@ -78,17 +78,17 @@ export function setAuthData(authResponse: any): void {
   try {
     debugLog("=== Storing auth data ===");
     debugLog("Input data:", authResponse);
-    
+
     localStorage.setItem("auth", JSON.stringify(authResponse));
-    
+
     // Verify it was stored
     const stored = localStorage.getItem("auth");
     debugLog("Verification - stored data:", stored);
-    
+
     // Verify we can read the token back
     const token = getAuthToken();
     debugLog("Verification - can read token:", token ? "YES" : "NO");
-    
+
     if (token) {
       debugLog("Token preview:", token.substring(0, 30) + "...");
     }
@@ -110,22 +110,22 @@ axiosInstance.interceptors.request.use(
     debugLog("=== Outgoing Request ===");
     debugLog("URL:", config.url);
     debugLog("Method:", config.method);
-    
+
     const token = getAuthToken();
-    
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
       debugLog("✅ Authorization header set");
     } else {
       debugLog("⚠️ No token available - request will be unauthenticated");
     }
-    
+
     return config;
   },
   (error) => {
     debugLog("❌ Request interceptor error:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor
@@ -150,24 +150,26 @@ axiosInstance.interceptors.response.use(
     debugLog("Request headers:", error?.config?.headers);
 
     const publicEndpoints = ["/user/login", "/user/register", "/auth/login"];
-    const isPublicEndpoint = publicEndpoints.some((endpoint) => 
-      requestUrl.includes(endpoint)
+    const isPublicEndpoint = publicEndpoints.some((endpoint) =>
+      requestUrl.includes(endpoint),
     );
 
     if (status === 401) {
       debugLog("🚨 401 Unauthorized detected");
       debugLog("Is public endpoint:", isPublicEndpoint);
       debugLog("Is already redirecting:", isRedirecting);
-      
+
       if (!isPublicEndpoint && !isRedirecting) {
         isRedirecting = true;
         clearAuthData();
-        
+
         toast.error("Session expired. Please login again.");
-        
+
         setTimeout(() => {
-          if (typeof window !== "undefined" && 
-              !window.location.pathname.includes("/admin/login")) {
+          if (
+            typeof window !== "undefined" &&
+            !window.location.pathname.includes("/admin/login")
+          ) {
             debugLog("Redirecting to login...");
             window.location.href = "/admin/login";
           }
@@ -181,7 +183,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

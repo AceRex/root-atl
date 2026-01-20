@@ -43,7 +43,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     "/admin/register",
     "/admin/forgot-password",
   ];
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const isPublicRoute = publicRoutes.some((route) => pathname.includes(route));
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -75,16 +75,21 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   // Redirect logic
   useEffect(() => {
     if (!isLoading) {
-      if (!user && !isPublicRoute) {
-        // User not authenticated, redirect to login
-        router.push("/admin/login");
-      } else if (user && isPublicRoute) {
-        // User authenticated but on public route, redirect to last page or dashboard
-        const lastPage = localStorage.getItem("lastVisitedPage");
-        router.push(lastPage || "/admin/dashboard");
+      const isAdminSection = pathname?.includes("/admin");
+
+      if (isAdminSection) {
+        if (!user && !isPublicRoute) {
+          // User not authenticated, redirect to login
+          // Middleware will handle locale if we use absolute path
+          router.push("/admin/login");
+        } else if (user && isPublicRoute) {
+          // User authenticated but on public route, redirect to last page or dashboard
+          const lastPage = localStorage.getItem("lastVisitedPage");
+          router.push(lastPage || "/admin/dashboard");
+        }
       }
     }
-  }, [user, isLoading, isPublicRoute, router]);
+  }, [user, isLoading, isPublicRoute, router, pathname]);
 
   const login = (userData: User) => {
     setUser(userData);
