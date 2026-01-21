@@ -15,9 +15,9 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     const locale = defaultLocale;
 
-    // If the path is just /, redirect to /en/main (mimicking the original redirect behavior)
+    // If the path is just /, redirect to /en
     if (pathname === "/") {
-      return NextResponse.redirect(new URL(`/${locale}/main`, request.url));
+      return NextResponse.redirect(new URL(`/${locale}`, request.url));
     }
 
     // Otherwise, redirect to /{locale}/{pathname}

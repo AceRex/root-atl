@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import Header from "../main/views/header";
+import Header from "../(index)/views/header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -24,7 +24,7 @@ export default function AdminRootLayout({
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
   return (
     <html>

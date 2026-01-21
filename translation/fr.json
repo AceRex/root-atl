@@ -5,6 +5,138 @@
         "shopNow": "Achetez maintenant",
         "search": "Recherchez ici les produits",
         "signup": "S'inscrire",
-        "checkout": "Passer la commande"
+        "checkout": "Vérifier"
+    },
+    "hero": {
+        "star": "100,000+ clients heureux",
+        "heading1": "Guérir",
+        "heading2": "de l'intérieur vers l'extérieur",
+        "shopNow": "Achetez maintenant",
+        "joinNetwork": "Rejoindre le réseau ROOT"
+    },
+    "aboutRootATL":{
+        "tag": "À propos de ROOTS ATL",
+        "heading": "Rejoignez le mouvement ROOTS ATL",
+        "subHeading": "ROOTS ATL est une entreprise de santé qui soutient, éduque et prend soin des personnes à chaque étape de leur parcours de bien-être.",
+    "overview": {
+        "text":"Aperçu de ROOTS ATL",
+        "overviewContent":"ROOTS ATL est une plateforme de commerce électronique dédiée au bien-être, dotée d'un système de parrainage intégré. Les utilisateurs peuvent y faire leurs achats, s'abonner à différents niveaux et gagner des commissions en recommandant d'autres personnes.",
+        "overviewList":{
+            "1":"Boutique de produits (compléments alimentaires, thés, soins de la peau)",
+            "2":"Abonnements à plusieurs niveaux (Basique, Premium, Pro)",
+            "3":"Système de parrainage et de commissions (marketing de réseau)",
+            "4":"Tableau de bord personnel (Ventes, bonus, équipe)",
+            "5":"Espace de formation et marketplace"
+        }
+    }},
+       "homepageProducts": {
+        "heading":"Produits ROOT ATL",
+        "subHeading":"ROOTS ATL donne aux individus les moyens d'agir grâce à l'éducation, aux traitements et à un soutien continu tout au long de leur parcours de santé."
+    },
+    "howItWorks": {
+        "heading":"Comment ça fonctionne (Modèle MLM)",
+        "subHeading":"ROOTS ATL donne aux individus les moyens d'agir grâce à l'éducation, aux traitements et à un soutien continu tout au long de leur parcours de santé.",
+        "items": [
+            {
+                "title":"S'abonner",
+                "content":"Créez votre propre emploi du temps, fixez vos propres horaires de travail, travaillez à domicile, travaillez en ligne - soyez indépendant"
+            },
+            {
+                "title":"Partager",
+                "content":"Créez votre propre emploi du temps, fixez vos propres horaires de travail, travaillez à domicile, travaillez en ligne - soyez indépendant"
+            },
+            {
+                "title":"Gagner",
+                "content":"Créez votre propre emploi du temps, fixez vos propres horaires de travail, travaillez à domicile, travaillez en ligne - soyez indépendant"
+            }
+        ],
+        "button":"Rejoindre notre communauté"
+    },
+    "Best Sellings":"Meilleures ventes",
+    "shopNow": "Acheter maintenant",
+    "FAQ":{
+        "heading":"Foire aux questions",
+        "items": [
+            {
+                "title":"Comment puis-je m'inscrire?",
+                "content1":"Nous sommes fiers de nos produits avec une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, retournez simplement l'article dans son état d'origine.",
+                "content2":"Notre processus de retour sans tracas comprend l'expédition de retour gratuite et des remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+            },
+            {
+                "title":"Quels sont les niveaux d'abonnement?",
+                "content1":"Il existe trois niveaux d'abonnement : Basique, Premium et Pro.",
+                "content2":"Les utilisateurs peuvent gagner des commissions en recommandant d'autres personnes à la plateforme."
+            },
+            {
+                "title":"Comment puis-je suivre mes transactions?",
+                "content1":"Nous sommes fiers de nos produits avec une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, retournez simplement l'article dans son état d'origine.",
+                "content2":"Notre processus de retour sans tracas comprend l'expédition de retour gratuite et des remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+            },
+            {
+                "title":"Avez-vous un bureau physique ?",
+                "content1":"Nous sommes fiers de nos produits avec une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, retournez simplement l'article dans son état d'origine.",
+                "content2":"Notre processus de retour sans tracas comprend l'expédition de retour gratuite et des remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+            },
+            {
+                "title":"Comment puis-je commencer avec Roots ATL?",
+                "content1":"Nous sommes fiers de nos produits avec une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, retournez simplement l'article dans son état d'origine.",
+                "content2":"Notre processus de retour sans tracas comprend l'expédition de retour gratuite et des remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+            },
+            {
+                "title":"Comment débuter avec Roots ATL ?",
+                "content1":"Nous sommes fiers de nos produits avec une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, retournez simplement l'article dans son état d'origine.",
+                "content2":"Notre processus de retour sans tracas comprend l'expédition de retour gratuite et des remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+            }
+        ]
+    },
+    "joinNow":{
+        "heading":"Rejoignez le réseau ROOTS ATL et commencez à gagner",
+        "button":"Rejoindre maintenant"
+    },
+    "signup":{
+        "heading":"S'inscrire",
+        "subHeading":"Vous avez déjà un compte?",
+        "login":"Se connecter maintenant",
+        "firstName":"Prénom",
+        "lastName":"Nom de famille",
+        "email":"E-mail",
+        "emailSubText":"Veuillez saisir votre adresse e-mail au format suivant : mon@email.com",
+        "password":"Mot de passe",
+        "dob":"Date de naissance",
+        "pickADate":"Choisissez une date",
+        "uniqueId":"Identifiant unique",
+        "confirmPassword":"Confirmer le mot de passe",
+        "enterPassword":"Entrez le mot de passe",
+        "button":"S'inscrire",
+        "lowercase":"minuscule",
+        "uppercase":"MAJUSCULE",
+        "number":"nombre",
+        "specialCharacter":"caractère spécial",
+        "8 characters":"8 caractères",
+        "TC": "J'accepte et je suis d'accord avec l'accord ROOTS ATL, les conditions d'utilisation et la politique de confidentialité.",
+        "continue":"Continuer",
+        "phone":"Téléphone",
+        "creatingAccount":"Création de compte..."
+    },
+    "verify":{
+        "heading":"Vérifier votre e-mail",
+        "subHeading":"Pour continuer avec l'inscription, veuillez vérifier votre e-mail. Un code a été envoyé à {{email}} vous pouvez le saisir ci-dessous",
+        "button":"Vérifier",
+        "creatingAccount":"Création de compte...",
+        "resendCode":"Renvoyer le code",
+        "didntReceiveCode":"Vous n'avez pas reçu de code?"
+    },
+    "login": {
+        "heading":"Se connecter",
+        "subHeading":"Saisissez vos identifiants pour accéder à votre compte",
+        "email":"Adresse e-mail",
+        "placeholderEmail":"Entrez votre mot de passe",
+        "password":"Mot de passe",
+        "rememberMe":"Se souvenir de moi pendant 30 jours",
+        "forgotPassword":"Mot de passe oublié?",
+        "button":"Se connecter à mon compte",
+        "newHere":"Vous êtes nouveau ici?",
+        "createAccount":"Créer un compte"
     }
+
 }

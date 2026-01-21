@@ -201,23 +201,28 @@ export default function Header() {
                     <DropdownMenuTrigger className="bg-transparent border-none outline-none ring-0 focus:outline-none focus:border-none focus:ring-0">
                       <div className="">
                         <p className="font-medium text-xs flex flex-row items-center gap-2">
+                          <span
+                            className={`fi fi-${
+                              currentLocale === "en" ? "us" : "fr"
+                            }`}
+                          ></span>
                           {currentLocale.toUpperCase()}{" "}
                           <ChevronDown size={20} />
                         </p>
                       </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className="max-w-[20px]">
                       <DropdownMenuItem
                         className="font-medium text-xs flex flex-row items-center gap-2"
                         onClick={() => handleLanguageChange("EN")}
                       >
-                        EN
+                        <span className="fi fi-us"></span> EN
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="font-medium text-xs flex flex-row items-center gap-2"
                         onClick={() => handleLanguageChange("FR")}
                       >
-                        FR
+                        <span className="fi fi-fr"></span> FR
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

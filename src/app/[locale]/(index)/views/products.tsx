@@ -18,6 +18,7 @@ import {
   TeaBagIcon,
 } from "@phosphor-icons/react";
 import { Tablet } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const data = [
   { image: img1 },
@@ -58,17 +59,17 @@ function ImageGrid({ items }: { items: ImageItem[] }) {
 }
 
 function Products() {
+  const { t } = useTranslation();
   return (
     <Container className="my-20 lg:p-28 flex flex-col gap-3 items-center">
       <div className="bg-white text-center drop-shadow-xl drop-shadow-[#F3903526] text-lg px-5 py-2 rounded-full font-semibold">
-        🌿 ROOT ATL Products
+        🌿 {t("homepageProducts.heading")}
       </div>
       <h3 className="font-semibold text-2xl text-center lg:text-4xl mt-8">
-        Roots ATL Products
+        {t("homepageProducts.heading")}
       </h3>
       <p className="text-base w-[100%] lg:w-[48%] text-center mb-4">
-        ROOTS ATL empowers individuals through education, treatment, and
-        continuous support across their entire health journey.
+        {t("homepageProducts.subHeading")}
       </p>
       <Tabs defaultValue="sup_men" className="mt-6 w-full">
         <TabsList className="h-14 w-full rounded-full bg-gray-100 p-1 flex gap-2">

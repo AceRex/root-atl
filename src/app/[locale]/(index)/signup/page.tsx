@@ -28,7 +28,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 
 function Page() {
   const [hide, setHide] = useState<boolean>(true);
@@ -43,10 +43,15 @@ function Page() {
   const { mutate, isPending } = useRegisterUser();
 
   const onSubmit: SubmitHandler<Registration> = (data) => {
-    mutate( data as any);
+    const formattedData = {
+      ...data,
+      dob: data.dob ? format(new Date(data.dob), "yyyy-MM-dd") : data.dob,
+    };
+    mutate(formattedData as any);
   };
 
   const router = useRouter();
+  const { t } = useTranslation();
 
   // Watch password field for real-time validation
   const password = watch("password") || "";
@@ -70,7 +75,7 @@ function Page() {
         "px-2 py-1 border flex flex-row gap-2 items-center justify-between rounded-full transition-colors",
         isValid
           ? "text-green-600 border-green-600 bg-green-50"
-          : "text-neutral-400 border-neutral-300"
+          : "text-neutral-400 border-neutral-300",
       )}
     >
       <p className="text-xs">{text}</p>
@@ -87,12 +92,12 @@ function Page() {
       <Container className="lg:px-28 max-sm:!px-0 py-4">
         <div className="bg-white p-24 rounded-xl">
           <div className="text-center">
-            <h3 className="font-semibold text-3xl">Sign up</h3>
+            <h3 className="font-semibold text-3xl">{t("signup.heading")}</h3>
             <p>
-              Already have an account?
+              {t("signup.subHeading")}
               <Link href={"/login"} className="text-[#B69B64]">
                 {" "}
-                Login now
+                {t("signup.login")}
               </Link>
             </p>
           </div>
@@ -102,11 +107,11 @@ function Page() {
               className="lg:w-[40%] w-full"
             >
               <div className="my-5">
-                <label className="ml-1 text-sm">First Name</label>
+                <label className="ml-1 text-sm">{t("signup.firstName")}</label>
                 <Input
                   className={cn(
                     "h-10 mt-1 w-full border border-neutral-300",
-                    errors.firstName && "border-red-600"
+                    errors.firstName && "border-red-600",
                   )}
                   {...register("firstName", {
                     required: "This field is required",
@@ -119,11 +124,11 @@ function Page() {
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Last Name</label>
+                <label className="ml-1 text-sm">{t("signup.lastName")}</label>
                 <Input
                   className={cn(
                     "h-10 mt-1 w-full border border-neutral-300",
-                    errors.lastName && "border-red-600"
+                    errors.lastName && "border-red-600",
                   )}
                   {...register("lastName", {
                     required: "This field is required",
@@ -136,11 +141,11 @@ function Page() {
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Email</label>
+                <label className="ml-1 text-sm">{t("signup.email")}</label>
                 <div
                   className={cn(
                     "relative rounded-lg mt-1 w-full border border-neutral-300",
-                    errors.email && "border-red-600"
+                    errors.email && "border-red-600",
                   )}
                 >
                   <Input
@@ -157,7 +162,7 @@ function Page() {
                     size={20}
                     className={cn(
                       "absolute top-2.5 right-3 text-neutral-300",
-                      errors.email && "text-red-600"
+                      errors.email && "text-red-600",
                     )}
                   />
                 </div>
@@ -167,16 +172,16 @@ function Page() {
                   </span>
                 ) : (
                   <span className="text-xs text-neutral-500">
-                    Write your email in this format my@email.com
+                    {t("signup.emailSubText")}
                   </span>
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Phone</label>
+                <label className="ml-1 text-sm">{t("signup.phone")}</label>
                 <div
                   className={cn(
                     "relative rounded-lg mt-1 w-full border border-neutral-300",
-                    errors.phone && "border-red-600"
+                    errors.phone && "border-red-600",
                   )}
                 >
                   <Input
@@ -189,7 +194,7 @@ function Page() {
                     size={20}
                     className={cn(
                       "absolute top-2.5 right-3 text-neutral-300",
-                      errors.phone && "text-red-600"
+                      errors.phone && "text-red-600",
                     )}
                   />
                 </div>
@@ -200,7 +205,7 @@ function Page() {
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Date of Birth</label>
+                <label className="ml-1 text-sm">{t("signup.dob")}</label>
                 <Controller
                   control={control}
                   name="dob"
@@ -213,14 +218,14 @@ function Page() {
                           className={cn(
                             "w-full h-10 mt-1 justify-start text-left font-normal border border-neutral-300",
                             !field.value && "text-muted-foreground",
-                            errors.dob && "border-red-600"
+                            errors.dob && "border-red-600",
                           )}
                         >
                           <CalendarIcon />
                           {field.value ? (
                             format(field.value, "yyyy-MM-dd")
                           ) : (
-                            <span>Pick a date</span>
+                            <span>{t("signup.pickADate")}</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -242,11 +247,11 @@ function Page() {
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Unique ID</label>
+                <label className="ml-1 text-sm">{t("signup.uniqueId")}</label>
                 <Input
                   className={cn(
                     "h-10 mt-1 w-full border border-neutral-300",
-                    errors.username && "border-red-600"
+                    errors.username && "border-red-600",
                   )}
                   {...register("username", {
                     required: "This field is required",
@@ -259,17 +264,17 @@ function Page() {
                 )}
               </div>
               <div className="my-5">
-                <label className="ml-1 text-sm">Password</label>
+                <label className="ml-1 text-sm">{t("signup.password")}</label>
                 <div
                   className={cn(
                     "relative rounded-lg mt-1 w-full border border-neutral-300",
-                    errors.password && "border-red-600"
+                    errors.password && "border-red-600",
                   )}
                 >
                   <Input
                     className="h-10 w-full border-0"
                     type={hide ? "password" : "text"}
-                    placeholder="Enter password"
+                    placeholder={t("signup.enterPassword")}
                     {...register("password", {
                       required: "Password is required",
                       validate: {
@@ -308,13 +313,25 @@ function Page() {
                   </span>
                 )}
                 <div className="flex flex-row items-center flex-wrap gap-3 mt-3">
-                  <ValidationBadge isValid={hasLowercase} text="Lowercase" />
-                  <ValidationBadge isValid={hasMinLength} text="8 Characters" />
-                  <ValidationBadge isValid={hasUppercase} text="Uppercase" />
-                  <ValidationBadge isValid={hasNumber} text="Number" />
+                  <ValidationBadge
+                    isValid={hasLowercase}
+                    text={t("signup.lowercase")}
+                  />
+                  <ValidationBadge
+                    isValid={hasMinLength}
+                    text={t("signup.8characters")}
+                  />
+                  <ValidationBadge
+                    isValid={hasUppercase}
+                    text={t("signup.uppercase")}
+                  />
+                  <ValidationBadge
+                    isValid={hasNumber}
+                    text={t("signup.number")}
+                  />
                   <ValidationBadge
                     isValid={hasSpecialChar}
-                    text="Special character"
+                    text={t("signup.specialCharacter")}
                   />
                 </div>
               </div>
@@ -331,10 +348,7 @@ function Page() {
                     />
                   )}
                 />
-                <p className="text-sm">
-                  I acknowledge and agree to Agreement ROOTS ATL, Terms of Use &
-                  Privacy Policy.
-                </p>
+                <p className="text-sm">{t("signup.TC")}</p>
               </div>
               {errors.agreeToTerms && (
                 <span className="text-red-600 text-xs block -mt-4 mb-2">
@@ -346,34 +360,31 @@ function Page() {
                 disabled={isPending}
                 className="bg-[#B69B64] mt-5 w-full flex-grow font-semibold border-0 text-lg text-white py-6 cursor-pointer hover:bg-[#A58B54] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isPending ? "Creating account..." : "Continue"}
+                {isPending ? t("signup.creatingAccount") : t("signup.continue")}
               </Button>
             </form>
             <div className="hidden lg:block lg:w-[60%] px-12">
               <div className="rounded-lg p-24 bg-[#F8D8CC] flex flex-col gap-12">
                 <div className="flex flex-col justify-center gap-3 text-center items-center">
                   <PointerIcon size={30} />
-                  <h4 className="text-lg font-semibold">Subscribe</h4>
-                  <p className="text-sm">
-                    Make your own work schedule, set your own working hours,
-                    work from home, work online - be independent
-                  </p>
+                  <h4 className="text-lg font-semibold">
+                    {t("howItWorks.items.0.title")}
+                  </h4>
+                  <p className="text-sm">{t("howItWorks.items.0.content")}</p>
                 </div>
                 <div className="flex flex-col justify-center gap-3 text-center items-center">
                   <Share2Icon size={30} />
-                  <h4 className="text-lg font-semibold">Share</h4>
-                  <p className="text-sm">
-                    Make your own work schedule, set your own working hours,
-                    work from home, work online - be independent
-                  </p>
+                  <h4 className="text-lg font-semibold">
+                    {t("howItWorks.items.1.title")}
+                  </h4>
+                  <p className="text-sm">{t("howItWorks.items.1.content")}</p>
                 </div>
                 <div className="flex flex-col justify-center gap-3 text-center items-center">
                   <PiggyBankIcon size={30} />
-                  <h4 className="text-lg font-semibold">Earn</h4>
-                  <p className="text-sm">
-                    Make your own work schedule, set your own working hours,
-                    work from home, work online - be independent
-                  </p>
+                  <h4 className="text-lg font-semibold">
+                    {t("howItWorks.items.2.title")}
+                  </h4>
+                  <p className="text-sm">{t("howItWorks.items.2.content")}</p>
                 </div>
               </div>
             </div>

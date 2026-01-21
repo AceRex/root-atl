@@ -18,6 +18,7 @@ import immunDrop from "@/assets/products/e774ccab1604a35b67b51d40adf5c8b355bca75
 import femme from "@/assets/products/fcec0e9f46b97d750fb3f9bc76de94069aa9e670.png";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 const SlideImages: { id: number; image: any }[] = [
   { id: 1, image: Rad_berries },
@@ -38,6 +39,7 @@ const SlideImages: { id: number; image: any }[] = [
 function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { t } = useTranslation();
 
   const router = useRouter();
 
@@ -71,35 +73,36 @@ function Hero() {
     <div className="flex flex-col lg:flex-row w-full min-h-[80dvh]">
       {/* LEFT: Text Content */}
       <div className="bg-[#DED6CD] w-full lg:w-[42%] flex flex-col items-start justify-center gap-4 px-10 py-12 md:p-20">
-        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-2 max-w-[70%] flex flex-row items-center justify-center gap-3">
+        <div className="md:bg-white bg-[#7A7874] rounded-xl md:rounded-full py-3 px-4 max-w-[70%] flex flex-row items-center justify-center gap-2">
           <Image
             src={star}
             alt="star"
             className="w-[20px] h-[20px] hidden md:block"
           />
           <p className="text-sm max-md:text-white font-medium">
-            100,000+ Happy customers
+            {t("hero.star")}
           </p>
         </div>
 
         <p className="md:text-7xl text-4xl font-medium md:text-[#221A11] text-[#624B31]">
-          <span className="md:text-[#234D35] md:italic">Healing</span> from the
-          inside out
+          <span className="md:text-[#234D35] md:italic">
+            {t("hero.heading1")}
+          </span>{" "}
+          {t("hero.heading2")}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full">
           <Button
-          
             onClick={() => router.push("/allproducts")}
             className="bg-[#234D35] flex-grow font-semibold border-0 text-lg text-white py-6"
           >
-            Shop now <ChevronRight />
+            {t("hero.shopNow")} <ChevronRight />
           </Button>
           <Button
             variant="outline"
             className="border-[#4F4840] flex-grow font-semibold bg-transparent text-lg text-[#221A11] py-6"
           >
-            Join the ROOT Network
+            {t("hero.joinNetwork")}
           </Button>
         </div>
       </div>

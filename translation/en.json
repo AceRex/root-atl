@@ -6,5 +6,138 @@
         "search": "Search here for Products",
         "signup": "Sign Up",
         "checkout": "Checkout"
+    },
+    "hero": {
+        "star": "100,000+ Happy customers",
+        "heading1": "Healing",
+        "heading2": "from the inside out",
+        "shopNow": "Shop now",
+        "joinNetwork": "Join the ROOT Network"
+    },
+    "aboutRootATL": {
+        "tag": "About ROOT ATL",
+        "heading": "Join the ROOTS ATL Movement",
+        "subHeading": "ROOTS ATL is a health company that supports, educates, and cares for people at every stage of their wellness journey.",
+        "overview": {
+            "text":"Overview of ROOTS ATL",
+            "overviewContent":"ROOTS ATL is a wellness e-commerce platform with a built-in referral system. Users can shop, subscribe to tiers, and earn commissions by referring others.",
+            "overviewList":{
+                "1":"Product Store (Supplements, Teas, Skincare)",
+                "2":"Tiered Subscriptions (Basic, Premium, Pro)",
+                "3":"Referral & Commission System (MLM)",
+                "4":"Personal Dashboard (Sales, Bonuses, Team)",
+                "5":"Training Vault & Marketplace"
+            }
+        }
+    },
+    "homepageProducts": {
+        "heading":"ROOT ATL Products",
+        "subHeading":"ROOTS ATL empowers individuals through education, treatment, and continuous support across their entire health journey."
+    },
+    "howItWorks": {
+        "heading":"How It Works (MLM Model)",
+        "subHeading":"ROOTS ATL empowers individuals through education, treatment, and continuous support across their entire health journey.",
+        "items": [
+            {
+                "title":"Subscribe",
+                "content":"Make your own work schedule, set your own working hours, work from home, work online - be independent"
+            },
+            {
+                "title":"Share",
+                "content":"Make your own work schedule, set your own working hours, work from home, work online - be independent"
+            },
+            {
+                "title":"Earn",
+                "content":"Make your own work schedule, set your own working hours, work from home, work online - be independent"
+            }
+        ],
+        "button":"Join Our Community"
+    },
+    "Best Sellings":"Best Sellings",
+    "shopNow": "Shop Now",
+    "FAQ":{
+        "heading":"Frequently Asked Questions",
+        "items": [
+            {
+                "title":"What is ROOTS ATL?",
+                "content1":"Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.",
+                "content2":"Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts."
+            },
+            {
+                "title":"How does the Roots ATL services work?",
+                "content1":"We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days.",
+                "content2":"All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal."
+            },
+            {
+                "title":"Are my transactions secured?",
+                "content1":"We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+                "content2":"Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+            },
+            {
+                "title":"How do I track my transactions?",
+                "content1":"We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+                "content2":"Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+            },
+            {
+                "title":"Do you have physical office?",
+                "content1":"We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+                "content2":"Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+            },
+            {
+                "title":"How do I get started with Roots ATL?",
+                "content1":"We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+                "content2":"Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+            }
+        ]
+    },
+    "joinNow":{
+        "heading":"Join the ROOTS Network and Start Earning",
+        "button":"Join Now"
+    },
+    "signup":{
+        "heading":"Sign Up",
+        "subHeading":"Already have an account?",
+        "login":"Login now",
+        "firstName":"First Name",
+        "lastName":"Last Name",
+        "email":"E-mail",
+        "emailSubText":"Write your email in this format my@email.com",
+        "password":"Password",
+        "dob":"Date of Birth",
+        "pickADate":"Pick a date",
+        "uniqueId":"Unique ID",
+        "confirmPassword":"Confirm Password",
+        "enterPassword":"Enter password",
+        "button":"Sign Up",
+        "lowercase":"lowercase",
+        "uppercase":"uppercase",
+        "number":"number",
+        "specialCharacter":"special character",
+        "8 characters":"8 characters",
+        "TC": "I acknowledge and agree to Agreement ROOTS ATL, Terms of Use & Privacy Policy.",
+        "continue":"Continue",
+        "phone":"Phone",
+        "creatingAccount":"Creating account..."
+    },
+    "verify":{
+        "heading":"Verify your email",
+        "subHeading":"To continue with the registration please verify your email. A code was sent to {{email}} you can enter it below",
+        "button":"Verify",
+        "creatingAccount":"Creating account...",
+        "resendCode":"Send again",
+        "didntReceiveCode":"Didn't receive a code?"
+    },
+    "login":{
+        "heading":"Log In",
+        "subHeading":"Enter your credentials to access your account",
+        "email":"Email",
+        "placeholderPassword":"Enter your password",
+        "password":"Password",
+        "rememberMe":"Remember me for 30 days",
+        "forgotPassword":"Forgot password?",
+        "button":"Log into account",
+        "newHere":"Are you new here?",
+        "createAccount":"Create account"
     }
+
 }
