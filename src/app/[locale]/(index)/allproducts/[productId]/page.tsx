@@ -1,7 +1,7 @@
 "use client";
-import BestSelling from "@/app/views/bestSelling";
-import Footer from "@/app/views/footer";
-import JoinUs from "@/app/views/joinUs";
+import BestSelling from "@/app/[locale]/(index)/views/bestSelling";
+import Footer from "@/app/[locale]/(index)/views/footer";
+import JoinUs from "@/app/[locale]/(index)/views/joinUs";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -66,7 +66,10 @@ function ProductViewPage() {
               <span className="text-lg w-2/4 text-center text-[#B69B64]">
                 {quantity}
               </span>
-              <button onClick={increaseQty} className={`text-[#B69B64] text-xl font-bold w-1/4`}>
+              <button
+                onClick={increaseQty}
+                className={`text-[#B69B64] text-xl font-bold w-1/4`}
+              >
                 +
               </button>
             </div>

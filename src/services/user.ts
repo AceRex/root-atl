@@ -3,6 +3,22 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+
+export interface Registration {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dob: Date | undefined;
+  username: string;
+  password: string;
+  agreeToTerms: boolean;
+}
+
+export interface Verification {
+  code: string;
+}
+
 export const useRegisterUser = () => {
   const router = useRouter();
   return useMutation({

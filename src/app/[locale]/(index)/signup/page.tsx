@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { useRegisterUser } from "@/services/user";
+import { useRegisterUser, Registration } from "@/services/user";
 import { format } from "date-fns";
 import {
   CalendarIcon,

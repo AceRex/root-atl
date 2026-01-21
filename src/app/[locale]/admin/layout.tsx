@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Inter } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 import Header from "../(index)/views/header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
