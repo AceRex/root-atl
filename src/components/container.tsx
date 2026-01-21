@@ -9,7 +9,7 @@ function Container({
 }) {
   return (
     <section
-      className={`max-w-[1500px] mx-auto flex gap-6 py-8 px-6 ${className}`}
+      className={`max-w-[1200px] mx-auto flex gap-6 py-8 px-6 ${className}`}
     >
       {children}
     </section>

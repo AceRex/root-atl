@@ -12,7 +12,7 @@ import Overview from "./views/overview";
 
 export default function HomePage() {
   return (
-    <div className="relative  bg-[#FAF9F6]">
+    <div className="relative bg-[#FAF9F6]">
       <div className=" pt-[5rem] lg:pt-[7.5rem]">
         <Hero />
         <About />

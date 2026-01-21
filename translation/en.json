@@ -137,7 +137,18 @@
         "forgotPassword":"Forgot password?",
         "button":"Log into account",
         "newHere":"Are you new here?",
-        "createAccount":"Create account"
+        "createAccount":"Create account",
+        "googleButton": "Login with Google"
+    },
+    "forgotPassword":{
+        "heading":"Forgot Password",
+        "subHeading":"Enter your email to reset your password",
+        "email":"Email",
+        "button":"Send password reset email",
+        "newPassword":"New Password",
+        "confirmPassword":"Confirm Password",
+        "resetPassword":"Reset Password",
+        "newPasswordSubHeading":"Enter your new password",
+        "backToLogin":"Back to login"
     }
-
 }

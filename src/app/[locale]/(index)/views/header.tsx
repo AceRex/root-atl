@@ -185,7 +185,7 @@ export default function Header() {
         <Sheet>
           <header className="bg-white border-b shadow-sm">
             <div className="w-full bg-[#B69B64] hidden md:block">
-              <div className="max-w-[1500px] mx-auto p-2">
+              <div className="max-w-[1200px] mx-auto p-2">
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center gap-1">
                     <PhoneIcon size={15} weight="fill" color="#251F0E" />
@@ -229,11 +229,11 @@ export default function Header() {
                 </div>
               </div>
             </div>
-            <Container className="min-h-[60px] items-center justify-between">
+            <Container className="min-h-[60px] !px-0 items-center justify-between">
               {/* Logo */}
               <Link
                 href={"/"}
-                className="flex justify-between items-center gap-6 w-full md:w-[60%]"
+                className="flex justify-between items-center gap-6 w-full md:w-1/5"
               >
                 <Image
                   src={Logo}
@@ -241,19 +241,24 @@ export default function Header() {
                   width={150}
                   height={150}
                 />
-                <div className="px-2 hidden md:flex items-center  flex-row gap-2 border border-[#D0D5DD] bg-[#F0F2F5] rounded-md text-sm w-full">
-                  <MagnifyingGlassIcon size={25} color="#667185" />
-                  <Input
-                    type="text"
-                    className="border-none outline-none ring-0 focus:outline-none focus:border-none focus:ring-0"
-                    placeholder={t("header.search")}
-                  />
-                </div>
-                <AlignJustify className="md:hidden block" />
               </Link>
 
+              <div className="px-2 hidden md:block relative gap-2 border border-[#D0D5DD] bg-[#F0F2F5] rounded-md text-sm w-full">
+                <MagnifyingGlassIcon
+                  size={20}
+                  color="#667185"
+                  className="absolute top-1/2 left-2 -translate-y-1/2"
+                />
+                <Input
+                  type="text"
+                  className="border-none outline-none pl-7 ring-0 focus:outline-none focus:border-none focus:ring-0"
+                  placeholder={t("header.search")}
+                />
+              </div>
+              <AlignJustify className="md:hidden block" />
+
               {/* Center Nav */}
-              <div className="hidden md:flex flex-end justify-end items-center gap-6">
+              <div className="hidden md:flex flex-end justify-end items-center gap-6 w-2/5">
                 <Link href="/allproducts" className="hover:text-[#B69B64]">
                   <p className="font-semibold text-sm flex flex-row items-center gap-2">
                     Products <ChevronDown size={20} />

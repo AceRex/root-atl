@@ -136,7 +136,19 @@
         "forgotPassword":"Mot de passe oublié?",
         "button":"Se connecter à mon compte",
         "newHere":"Vous êtes nouveau ici?",
-        "createAccount":"Créer un compte"
+        "createAccount":"Créer un compte",
+        "googleButton": "Se connecter avec Google"
+    },
+    "forgotPassword":{
+        "heading":"Mot de passe oublié",
+        "subHeading":"Entrez votre email pour réinitialiser votre mot de passe",
+        "email":"Adresse e-mail",
+        "button":"Envoyer un e-mail de réinitialisation du mot de passe",
+        "newPassword":"Nouveau mot de passe",
+        "confirmPassword":"Confirmer le mot de passe",
+        "resetPassword":"Réinitialiser le mot de passe",
+        "newPasswordSubHeading":"Entrez votre nouveau mot de passe",
+        "backToLogin":"retourÀConnexion"
     }
 
 }

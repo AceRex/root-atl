@@ -1,25 +1,24 @@
 "use client";
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff, Mail } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { useLoginUser, Login } from "@/services/user";
+import { useLoginUser, Login, useResetNewPassword } from "@/services/user";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { useGoggleLogin } from "@/services/user";
-import Image from "next/image";
-import googleIcon from "../../../../assets/goolge-icon-thumb.png";
+import { useAuthStore } from "@/store/store";
 
 function Page() {
   const [hide, setHide] = useState<boolean>(true);
 
   const router = useRouter();
   const { t } = useTranslation();
+  const { resetCode } = useAuthStore();
+  const { mutate, isPending } = useResetNewPassword();
 
   const {
     register,
@@ -27,12 +26,8 @@ function Page() {
     formState: { errors },
   } = useForm<Login>();
 
-  const { mutate: login, isPending } = useLoginUser();
-
-  const { mutate: googleLogin, isPending: googlePending } = useGoggleLogin();
-
   const onSubmit: SubmitHandler<Login> = (data) => {
-    login(data);
+    mutate({ ...data, code: resetCode });
   };
 
   return (
@@ -40,8 +35,12 @@ function Page() {
       <Container className="lg:px-28 max-sm:!px-0 py-4">
         <div className="bg-white min-h-[600px] flex flex-col justify-center w-full lg:p-12 p-4 rounded-lg space-y-6">
           <div className="text-center">
-            <h3 className="font-semibold text-[30px]">{t("login.heading")}</h3>
-            <p className="text-[16px]">{t("login.subHeading")}</p>
+            <h3 className="font-semibold text-[30px]">
+              {t("forgotPassword.resetPassword")}
+            </h3>
+            <p className="text-[16px]">
+              {t("forgotPassword.newPasswordSubHeading")}
+            </p>
           </div>
           <div className="flex flex-row flex-wrap justify-center">
             <form
@@ -49,40 +48,9 @@ function Page() {
               className="lg:w-[40%] w-full"
             >
               <div className="my-5">
-                <label className="ml-1 text-sm">{t("login.email")}</label>
-                <div
-                  className={cn(
-                    "relative rounded-lg mt-1 w-full border border-neutral-300",
-                    errors.email && "border-red-600",
-                  )}
-                >
-                  <Input
-                    {...register("email", {
-                      required: t("login.emailRequired") || "Email is required",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "Invalid email address",
-                      },
-                    })}
-                    className="h-10 w-full border-0"
-                    placeholder="example@email.com"
-                  />
-                  <Mail
-                    size={20}
-                    className={cn(
-                      "absolute top-2.5 right-3 text-neutral-300",
-                      errors.email && "text-red-600",
-                    )}
-                  />
-                </div>
-                {errors.email && (
-                  <span className="text-red-600 text-xs text-start block mt-1">
-                    {errors.email.message}
-                  </span>
-                )}
-              </div>
-              <div className="my-5">
-                <label className="ml-1 text-sm">{t("login.password")}</label>
+                <label className="ml-1 text-sm">
+                  {t("forgotPassword.newPassword")}
+                </label>
                 <div
                   className={cn(
                     "relative rounded-lg mt-1 w-full border border-neutral-300",
@@ -115,41 +83,54 @@ function Page() {
                   </span>
                 )}
               </div>
-              <div className="my-6 flex flex-row items-start justify-between gap-2">
-                <div className="flex flex-row items-center gap-4">
-                  <Checkbox className="h-5 w-5" />
-                  <p className="text-sm font-semibold">
-                    {t("login.rememberMe")}
-                  </p>
+              <div className="my-5">
+                <label className="ml-1 text-sm">
+                  {t("forgotPassword.confirmPassword")}
+                </label>
+                <div
+                  className={cn(
+                    "relative rounded-lg mt-1 w-full border border-neutral-300",
+                    errors.password && "border-red-600",
+                  )}
+                >
+                  <Input
+                    className="h-10 w-full border-0"
+                    type={hide ? "password" : "text"}
+                    placeholder={t("login.placeholderPassword")}
+                    {...register("password", {
+                      required:
+                        t("login.passwordRequired") || "Password is required",
+                    })}
+                  />
+                  <div
+                    onClick={() => setHide(!hide)}
+                    className="absolute top-2.5 right-3 cursor-pointer"
+                  >
+                    {hide ? (
+                      <Eye size={20} className=" text-neutral-300" />
+                    ) : (
+                      <EyeOff size={20} className=" text-neutral-300" />
+                    )}
+                  </div>
                 </div>
-                <p className="text-sm">
-                  <Link href={"/forgot-password"} className=" text-[#B69B64]">
-                    {t("login.forgotPassword")}
-                  </Link>
-                </p>
+                {errors.password && (
+                  <span className="text-red-600 text-xs text-start block mt-1">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
               <Button
                 type="submit"
                 disabled={isPending}
                 className="bg-[#B69B64] mt-5 w-full flex-grow font-semibold border-0 text-[14px] text-white py-6 cursor-pointer hover:bg-[#A58B54] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isPending ? "Logging in..." : t("login.button")}
-              </Button>
-              <Button
-                disabled={googlePending}
-                onClick={() => googleLogin()}
-                className="border-neutral-300 border flex flex-row items-center gap-2 justify-center hover:text-white bg-transparent mt-5 w-full flex-grow font-semibold text-[14px] text-neutral-500 py-6 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Image src={googleIcon} alt="google" width={20} height={20} />
-                {googlePending ? "Logging in..." : t("login.googleButton")}
+                {isPending ? "Sending..." : t("forgotPassword.resetPassword")}
               </Button>
 
               <div className="text-center text-sm mt-4">
                 <p>
-                  {t("login.newHere")}
-                  <Link href={"/signup"} className="text-[#B69B64]">
-                    {" "}
-                    {t("login.createAccount")}
+                  <Link href={"/login"} className="text-[#B69B64]">
+                    {t("forgotPassword.backToLogin")}
                   </Link>
                 </p>
               </div>
