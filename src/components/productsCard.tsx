@@ -38,26 +38,25 @@ function ProductsCard({
       <TooltipTrigger>
         <Card
           onClick={() => router.push(`/allproducts/${name}`)}
-          className="overflow-hidden hover:shadow-lg transition-shadow"
+          className="overflow-hidden hover:shadow-lg transition-shadow p-0"
         >
-          <div className={`p-6 flex items-center justify-center h-48`}>
+          <div className={`flex items-center justify-center h-[250px]`}>
             <Image
               src={image || "/placeholder.svg"}
               alt={name}
               width={150}
               height={150}
-              className="object-contain"
+              className="object-contain h-full w-full"
             />
           </div>
-          <CardContent className="p-4">
+          <CardContent className="py-4 space-y-3">
             <div className="flex flex-row items-start justify-between">
-              <h3 className=" text-[#221A11] text-lg mb-1">{name}</h3>
+              <h3 className=" text-[#221A11] text-[14px] mb-1">{name}</h3>
               <p className="flex flex-row text-sm font-semibold items-start">
-                <span>$</span>
-                <span className="text-2xl font-bold">{price.toFixed(2)}</span>
+                <span className="text-[16px] font-bold">${price.toFixed(2)}</span>
               </p>
             </div>
-            <p className="text-xs capitalize text-gray-600 my-2">{category}</p>
+            <p className="text-xs text-left capitalize text-gray-600 my-2">{category}</p>
 
             <div className="flex items-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => {
@@ -73,17 +72,15 @@ function ProductsCard({
               <span className="text-sm text-gray-600 ml-1">({reviews})</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <Button
+            <Button
                 variant="outline"
                 size="sm"
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 mt-5"
                 onClick={handleAddToCart}
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
               </Button>
-            </div>
           </CardContent>
         </Card>
       </TooltipTrigger>
