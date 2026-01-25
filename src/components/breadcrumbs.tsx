@@ -7,6 +7,8 @@ import Container from "./container";
 function Breadcrumbs() {
   const paths = usePathname();
   const pathArray = paths.split("/").filter((path) => path !== "");
+  const breadcrumbs = pathArray.slice(1);
+
   return (
     <Container>
       <div className="pt-[9rem] py-3">
@@ -14,8 +16,8 @@ function Breadcrumbs() {
           <Link href="/" className="hover:text-gray-900 text-[#B69B64]">
             Home
           </Link>
-          {pathArray.map((path, index) => {
-            const isLast = index === pathArray.length - 1;
+          {breadcrumbs.map((path, index) => {
+            const isLast = index === breadcrumbs.length - 1;
             return (
               <span key={index}>
                 <span className="mx-2">/</span>
@@ -23,7 +25,7 @@ function Breadcrumbs() {
                   <span className="text-gray-900 capitalize">{path}</span>
                 ) : (
                   <Link
-                    href={`/${pathArray.slice(0, index + 1).join("/")}`}
+                    href={`/${pathArray.slice(0, index + 2).join("/")}`}
                     className="hover:text-gray-900 capitalize"
                   >
                     {path}
