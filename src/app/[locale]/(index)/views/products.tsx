@@ -61,7 +61,7 @@ function Products() {
       <p className="text-base w-[100%] lg:w-[48%] text-center mb-4">
         {t("homepageProducts.subHeading")}
       </p>
-      {categories.length === 0 && (
+      {categories?.length === 0 && (
         <div className="flex flex-col justify-center items-center bg-[#B69B64]/10 rounded-[12px] p-6 w-[80%] mx-auto h-[300px]">
           <RectangleDashedIcon className="text-[#B69B64]/20 text-6xl" />
           <p className="text-lg text-[#B69B64]/40 font-semibold mt-4">
@@ -69,7 +69,7 @@ function Products() {
           </p>
         </div>
       )}
-      {categories.length > 0 && (
+      {categories?.length > 0 && (
         <Tabs defaultValue="sup_men" className="mt-6 w-full">
           <TabsList className="h-14 w-full rounded-full bg-gray-100 p-1 flex gap-2">
             <TabsTrigger

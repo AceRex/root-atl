@@ -14,7 +14,29 @@ export const useAdminLogin = () => {
   return useMutation({
     mutationFn: async (data: Login) => {
       const response = await axiosInstance.post(`/user/login`, data);
-      return response.data;
+      const resData = response.data;
+
+      if (resData.success === false) {
+        throw new Error(resData.message || "Login failed");
+      }
+
+      // Handle potential response structures
+      // 1. { success: true, token: "...", user: { ... } }
+      if (resData.user && resData.token) {
+        return { ...resData.user, token: resData.token }; // Flatten for AdminAuthProvider
+      }
+      
+      // 2. { success: true, data: { token: "...", user: { ... } } }
+      if (resData.data) {
+        const innerData = resData.data;
+        if (innerData.user && innerData.token) {
+           return { ...innerData.user, token: innerData.token };
+        }
+        return innerData;
+      }
+
+      // 3. Fallback
+      return resData;
     },
     onSuccess: (data) => {
       toast.success("Login successful");

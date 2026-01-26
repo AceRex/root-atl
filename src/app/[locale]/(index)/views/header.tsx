@@ -158,7 +158,7 @@ export default function Header() {
                   </>
                 </PopoverContent>
                 <div className="flex flex-row items-center gap-2 cursor-pointer">
-                  <Avatar className="w-10 h-10">
+                  <Avatar className="w-[32px] h-[32px]">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
@@ -169,10 +169,10 @@ export default function Header() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <p className="font-semibold text-sm">
+                    <p className="font-semibold capitalize text-sm">
                       {user?.firstName} {user?.lastName}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs capitalize text-neutral-500">
                       {user?.user_role}
                     </p>
                   </div>
