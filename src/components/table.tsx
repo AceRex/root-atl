@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DotsThreeVerticalIcon } from "@phosphor-icons/react/dist/ssr";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PlaceholderIcon } from "@phosphor-icons/react";
 
 interface TableColumn {
   key: string;
@@ -14,6 +16,7 @@ interface TableViewProps {
   totalPages: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;
+  isLoading?: boolean;
 }
 
 export default function TableView({
@@ -22,6 +25,7 @@ export default function TableView({
   totalPages,
   currentPage: externalCurrentPage,
   onPageChange,
+  isLoading,
 }: TableViewProps) {
   const [internalCurrentPage, setInternalCurrentPage] = useState(1);
 
@@ -82,7 +86,7 @@ export default function TableView({
               {heading.map((column) => (
                 <th
                   key={column.key}
-                  className="px-6 py-4 text-sm font-medium text-gray-600 whitespace-nowrap"
+                  className="px-6 py-3 text-sm font-medium text-gray-600 whitespace-nowrap"
                 >
                   {column.label}
                 </th>
@@ -90,13 +94,26 @@ export default function TableView({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {data.length === 0 ? (
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <tr key={index}>
+                  {heading.map((column) => (
+                    <td key={column.key} className="px-6 py-4">
+                      <Skeleton className="h-4 w-full" />
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : !data || data.length === 0 ? (
               <tr>
                 <td
                   colSpan={heading.length}
                   className="px-6 py-12 text-center text-sm text-gray-500"
                 >
-                  No data available
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <PlaceholderIcon size={32} className="text-gray-300" />
+                    <p>No data available</p>
+                  </div>
                 </td>
               </tr>
             ) : (
@@ -121,7 +138,7 @@ export default function TableView({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200">
+        <div className="flex items-center justify-between px-6 py-2 border-t border-gray-200">
           <button
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}

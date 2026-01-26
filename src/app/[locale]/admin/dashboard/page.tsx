@@ -91,48 +91,48 @@ function Page() {
   return (
     <div className="min-h-[100dvh] pt-[4rem] bg-[#FAF9F6] ">
       <Breadcrumbs />
-      <div className="grid grid-cols-4 gap-5 my-2">
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+      <div className="grid grid-cols-4 gap-4 my-2">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Active Subscribers
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">1,234</h2>
+            <h2 className="text-[24px] font-bold">1,234</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Sales This Month
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">$2.2M</h2>
+            <h2 className="text-[24px] font-bold">$2.2M</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Pending Orders
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">200</h2>
+            <h2 className="text-[24px] font-bold">200</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Outstanding Payouts
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">$2.2M</h2>
+            <h2 className="text-[24px] font-bold">$2.2M</h2>
           </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-5 my-5">
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 p-6 h-[341px] flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Top 5 Selling Products
           </p>
-          <div className="flex items-center">
-            <Table>
-              <TableHeader className="bg-neutral-100">
+          <div className="w-full overflow-auto no-scrollbar h-[260px] border rounded-md">
+            <table className="w-full caption-bottom text-sm">
+              <TableHeader className="bg-neutral-100 sticky top-0 z-10 shadow-sm">
                 <TableRow>
                   <TableHead className="w-[100px] font-bold text-neutral-500">
                     Product
@@ -162,19 +162,19 @@ function Page() {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+            </table>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+        <div className="col-span-1 p-6 h-[341px] flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-base text-[#B69B64] font-semibold">
+            <p className="text-[14px] text-[#B69B64] font-semibold">
               New Referrals This Week
             </p>
             <p className="text-xs font-semibold bg-[#B69B64] p-1 rounded-lg px-4 text-white">
               24 Total Referrals
             </p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 h-[260px] overflow-auto no-scrollbar">
             {Array(5)
               .fill(null)
               .map((_, i) => (
@@ -214,10 +214,10 @@ function Page() {
             <Plus size={25} />
           </div>
           <div className="flex flex-col items-start">
-            <p className="text-base text-[#B69B64] font-semibold">
+            <p className="text-[14px] text-[#B69B64] font-semibold">
               Add Products
             </p>
-            <h2 className="text-sm text-neutral-500 ">
+            <h2 className="text-[12px] text-neutral-500 ">
               Add a new product to your inventory
             </h2>
           </div>
@@ -230,10 +230,10 @@ function Page() {
             <NoteIcon size={25} />
           </div>
           <div className="flex flex-col items-start">
-            <p className="text-base text-[#B69B64] font-semibold">
+            <p className="text-[14px] text-[#B69B64] font-semibold">
               Reslove Tickets
             </p>
-            <h2 className="text-sm text-neutral-500 ">
+            <h2 className="text-[12px] text-neutral-500 ">
               12 ticketing awaiting resolution
             </h2>
           </div>
@@ -246,10 +246,10 @@ function Page() {
             <EnvelopeIcon size={25} />
           </div>
           <div className="flex flex-col items-start">
-            <p className="text-base text-[#B69B64] font-semibold">
+            <p className="text-[14px] text-[#B69B64] font-semibold">
               Send Update
             </p>
-            <h2 className="text-sm text-neutral-500 ">
+            <h2 className="text-[12px] text-neutral-500 ">
               Schedule email campaign
             </h2>
           </div>

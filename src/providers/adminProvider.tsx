@@ -76,21 +76,13 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isLoading) {
       const isAdminSection = pathname?.includes("/admin");
-      console.log("AdminAuthProvider Check:", {
-        isAdminSection,
-        user: !!user,
-        isPublicRoute,
-        pathname,
-      });
 
       if (isAdminSection) {
         if (!user && !isPublicRoute) {
-          console.log("Redirecting to login (No user + Protected route)");
           // User not authenticated, redirect to login
           // Middleware will handle locale if we use absolute path
           router.push("/admin/login");
         } else if (user && isPublicRoute) {
-          console.log("Redirecting to dashboard (User + Public route)");
           // User authenticated but on public route, redirect to last page or dashboard
           const lastPage = localStorage.getItem("lastVisitedPage");
           router.push(lastPage || "/admin/dashboard");

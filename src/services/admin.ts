@@ -54,12 +54,92 @@ export const useAdminLogin = () => {
   });
 };
 
+
+export interface Product {
+  id?: string;
+  name: string;
+  sku: string;
+  memory_price?: string;
+  retail_price: string;
+  category: string;
+  description: string;
+  inventory_quantity: number;
+  image?: any; // File or string
+}
+
+export interface Category {
+  id?: string;
+  category_name: string;
+  category_description: string;
+}
+
+export const useCreateProduct = () => {
+  return useMutation({
+    mutationFn: async (data: any) => {
+      // Use FormData for file uploads if needed, or JSON if image is a URL/base64
+      // Assuming JSON for now based on snippet, or FormData if image is file.
+      // If data.image is File, we need FormData.
+      const response = await axiosInstance.post(`/product`, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Product created successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to create product");
+    },
+  });
+};
+
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const response = await axiosInstance.put(`/product/${id}`, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Product updated successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to update product");
+    },
+  });
+};
+
+export const useCreateCategory = () => {
+  return useMutation({
+    mutationFn: async (data: Category) => {
+      const response = await axiosInstance.post(`/product/category`, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Category created successfully");
+    },
+    onError: (error: any) => {
+      toast.error(
+        error?.response?.data?.message || "Failed to create category",
+      );
+    },
+  });
+};
+
+export const useGetCategories = () =>
+  useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/product/category`);
+      if (!res.data.success) throw new Error(res.data.message);
+      return res.data.data;
+    },
+  });
+
 export const useGetProducts = () =>
   useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axiosInstance.get(`/product`);
       if (!res.data.success) throw new Error(res.data.message);
-      return res.data.user;
+      return res.data.data;
     },
   });
+

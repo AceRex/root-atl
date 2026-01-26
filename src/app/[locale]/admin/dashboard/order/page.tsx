@@ -144,8 +144,8 @@ function Page() {
             value === "Paid"
               ? "bg-green-100 text-green-700"
               : value === "Pending"
-              ? "bg-amber-200 text-amber-600"
-              : "bg-red-100 text-red-700"
+                ? "bg-amber-200 text-amber-600"
+                : "bg-red-100 text-red-700"
           }`}
         >
           {value}
@@ -161,8 +161,8 @@ function Page() {
             value === "Delivered"
               ? "bg-green-100 text-green-700"
               : value === "Shipped"
-              ? "bg-purple-200 text-purple-900"
-              : "bg-red-100 text-red-700"
+                ? "bg-purple-200 text-purple-900"
+                : "bg-red-100 text-red-700"
           }`}
         >
           {value}
@@ -385,9 +385,9 @@ function Page() {
         description="Enter the details of the new product."
         className="min-w-xl"
       >
-        <form className="py-4 w-full flex flex-col gap-4">
+        <form className="w-full flex flex-col gap-4">
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className=" w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Product name
               </label>
@@ -399,7 +399,7 @@ function Page() {
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 SKU
               </label>
@@ -413,7 +413,7 @@ function Page() {
             </div>
           </div>
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Memory Price
               </label>
@@ -425,7 +425,7 @@ function Page() {
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Retail Price
               </label>
@@ -439,7 +439,7 @@ function Page() {
             </div>
           </div>
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Category
               </label>
@@ -456,7 +456,7 @@ function Page() {
             </div>
           </div>
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Description
               </label>
@@ -470,7 +470,7 @@ function Page() {
             </div>
           </div>
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Inventory Quantity
               </label>
@@ -484,7 +484,7 @@ function Page() {
             </div>
           </div>
           <div className="flex w-full flex-row gap-4 items-center">
-            <div className="space-y-2 w-full">
+            <div className="w-full">
               <label className="text-sm font-medium text-neutral-500">
                 Product Image
               </label>

@@ -41,8 +41,8 @@ export function Modal({
         showCloseButton={false}
         aria-describedby={description ? undefined : "modal-description"}
         className={cn(
-          "max-w-[480px] max-h-[97vh] w-full !rounded-[20px] p-6 overflow-y-auto",
-          className
+          "max-w-[480px] max-h-[96vh] w-full !rounded-[20px] p-4 overflow-y-auto",
+          className,
         )}
         onPointerDownOutside={
           preventOutsideClose
@@ -69,14 +69,14 @@ export function Modal({
         <DialogHeader>
           {heading && (
             <DialogTitle className="flex flex-row items-center justify-between">
-              <span className="text-[#B69B64] text-2xl font-semibold">
+              <span className="text-[#B69B64] text-[20px] font-bold">
                 {heading}
               </span>
               <X size={25} onClick={() => onOpenChange(false)} />
             </DialogTitle>
           )}
           {description && (
-            <DialogDescription className=" -mt-1">
+            <DialogDescription className="-mt-1">
               {description}
             </DialogDescription>
           )}

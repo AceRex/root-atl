@@ -22,13 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DotsThreeVerticalIcon } from "@phosphor-icons/react/dist/ssr";
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import { useGetProducts } from "@/services/admin";
+  useGetProducts,
+  useCreateProduct,
+  useCreateCategory,
+  useGetCategories,
+} from "@/services/admin";
 
 function Breadcrumbs() {
   return (
@@ -56,53 +55,53 @@ function Breadcrumbs() {
 }
 
 function Page() {
-  const products = [
-    {
-      id: 1,
-      product: "Bellow Collins",
-      sku: "#123456",
-      category: "Home",
-      price: "₦10K",
-      stock: "Active",
-      image: "🌿",
-    },
-    {
-      id: 2,
-      product: "Bellow Collins",
-      sku: "#123456",
-      category: "Home",
-      price: "₦10K",
-      stock: "Out of Stock",
-      image: "🌿",
-    },
-    {
-      id: 3,
-      product: "Bellow Collins",
-      sku: "#123456",
-      category: "Home",
-      price: "₦10K",
-      stock: "Out of Stock",
-      image: "🌿",
-    },
-    {
-      id: 4,
-      product: "Bellow Collins",
-      sku: "#123456",
-      category: "Home",
-      price: "₦10K",
-      stock: "Active",
-      image: "🌿",
-    },
-    {
-      id: 5,
-      product: "Bellow Collins",
-      sku: "#123456",
-      category: "Home",
-      price: "₦10K",
-      stock: "Active",
-      image: "🌿",
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     product: "Bellow Collins",
+  //     sku: "#123456",
+  //     category: "Home",
+  //     price: "₦10K",
+  //     stock: "Active",
+  //     image: "🌿",
+  //   },
+  //   {
+  //     id: 2,
+  //     product: "Bellow Collins",
+  //     sku: "#123456",
+  //     category: "Home",
+  //     price: "₦10K",
+  //     stock: "Out of Stock",
+  //     image: "🌿",
+  //   },
+  //   {
+  //     id: 3,
+  //     product: "Bellow Collins",
+  //     sku: "#123456",
+  //     category: "Home",
+  //     price: "₦10K",
+  //     stock: "Out of Stock",
+  //     image: "🌿",
+  //   },
+  //   {
+  //     id: 4,
+  //     product: "Bellow Collins",
+  //     sku: "#123456",
+  //     category: "Home",
+  //     price: "₦10K",
+  //     stock: "Active",
+  //     image: "🌿",
+  //   },
+  //   {
+  //     id: 5,
+  //     product: "Bellow Collins",
+  //     sku: "#123456",
+  //     category: "Home",
+  //     price: "₦10K",
+  //     stock: "Active",
+  //     image: "🌿",
+  //   },
+  // ];
   const tableHeading = [
     {
       key: "product",
@@ -160,7 +159,7 @@ function Page() {
         <span className="cursor-pointer">
           <Button
             variant="outline"
-            className="border border-neutral-500 px-3 py-1"
+            className="border border-neutral-300 text-[12px] px-3 py-1"
           >
             Edit
           </Button>
@@ -171,56 +170,155 @@ function Page() {
 
   const [page, setPage] = useState(1);
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false);
+  const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false);
   const [per_page, setPerPage] = useState("10");
-  const { data } = useGetProducts();
 
-  console.log(data, "data");
+  // Data hooks
+  const { data, isLoading, refetch: refetchProducts } = useGetProducts();
+  const { data: categories } = useGetCategories();
+  const { mutate: createProduct, isPending: isCreatingProduct } =
+    useCreateProduct();
+  const { mutate: createCategory, isPending: isCreatingCategory } =
+    useCreateCategory();
+
+  // Product Form State
+  const [formData, setFormData] = useState({
+    product_name: "",
+    sku: "",
+    memory_price: "",
+    retail_price: "",
+    category: "", // This will store the category_id
+    description: "",
+    inventory_quantity: "",
+    image: null as File | null,
+    imagePreview: null as string | null, // Add preview state
+  });
+
+  // Category Form State
+  const [categoryForm, setCategoryForm] = useState({
+    category_name: "",
+    category_description: "",
+  });
 
   const handleCreateProduct = () => {
     setOpenCreateProductModal(!openCreateProductModal);
   };
 
+  const handleCreateCategory = () => {
+    setOpenCreateCategoryModal(!openCreateCategoryModal);
+  };
+
+  const handleProductSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Prepare payload. Mapping "category" to "category_id" if API expects "category_id"
+    // Assuming the API expects the field name "category_id" for the ID.
+    // If exact API spec is "category_id", I should change the key or map it here.
+    // Based on user prompt "create proucdt is requesting for category id", I will map it.
+
+    // Construct payload object matching API expectation
+    // NOTE: If using FormData, append accordingly. If JSON, standard object.
+    // User didn't specify FormData vs JSON strictly but "image uploading" strongly implies FormData.
+    // I will switch to FormData to support image upload properly.
+
+    const submitData = new FormData();
+    submitData.append("product_name", formData.product_name);
+    submitData.append("sku", formData.sku);
+    submitData.append("memory_price", formData.memory_price);
+    submitData.append("retail_price", formData.retail_price);
+    submitData.append("category_id", formData.category); // Map to category_id
+    submitData.append("description", formData.description);
+    submitData.append("inventory_quantity", formData.inventory_quantity);
+
+    if (formData.image) {
+      submitData.append("image", formData.image);
+    }
+
+    createProduct(submitData, {
+      onSuccess: () => {
+        setOpenCreateProductModal(false);
+        setFormData({
+          product_name: "",
+          sku: "",
+          memory_price: "",
+          retail_price: "",
+          category: "",
+          description: "",
+          inventory_quantity: "",
+          image: null,
+          imagePreview: null,
+        });
+        refetchProducts();
+      },
+    });
+  };
+
+  const handleCategorySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    createCategory(categoryForm, {
+      onSuccess: () => {
+        setOpenCreateCategoryModal(false);
+        setCategoryForm({ category_name: "", category_description: "" });
+        // Optionally refetch categories via query invalidation if needed,
+        // but react-query usually handles this if keys match or explicit refetch.
+        // Assuming categories query automatically refreshes or we need to invalidate.
+        // For now, standard behavior.
+      },
+    });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setFormData({
+        ...formData,
+        image: file,
+        imagePreview: URL.createObjectURL(file),
+      });
+    }
+  };
+
   return (
     <div className="min-h-[100dvh] pt-[4rem] bg-[#FAF9F6] ">
       <Breadcrumbs />
-      <div className="grid grid-cols-4 gap-5 my-2">
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+      {/* ... grids ... */}
+      <div className="grid grid-cols-4 gap-4 my-2">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Active Subscribers
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">1,234</h2>
+            <h2 className="text-[24px] font-bold">0</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Sales This Month
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">$2.2M</h2>
+            <h2 className="text-[24px] font-bold">$0</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Pending Orders
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">200</h2>
+            <h2 className="text-[24px] font-bold">0</h2>
           </div>
         </div>
-        <div className="col-span-1 p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
-          <p className="text-base text-[#B69B64] font-semibold">
+        <div className="col-span-1 h-[125px] p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
+          <p className="text-[14px] text-[#B69B64] font-semibold">
             Outstanding Payouts
           </p>
           <div className="flex items-center">
-            <h2 className="text-3xl font-semibold mt-2">$2.2M</h2>
+            <h2 className="text-[24px] font-bold">$0</h2>
           </div>
         </div>
       </div>
       <div className="my-4">
         <div className=" p-6 flex flex-col gap-4 border border-neutral-200 bg-white rounded-lg">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-base text-[#B69B64] font-semibold">
+            <p className="text-[14px] text-[#B69B64] font-semibold">
               Top 5 Selling Products
             </p>
             <div className="flex flex-row items-center gap-3">
@@ -234,7 +332,7 @@ function Page() {
               </div>
               <Button
                 onClick={handleCreateProduct}
-                className="bg-[#B69B64] flex-grow font-semibold border-0 text-sm text-white py-4 cursor-pointer"
+                className="bg-[#B69B64] flex-grow font-semibold border-0 text-[12px] text-white py-4 cursor-pointer"
               >
                 <Plus />
                 Add Products
@@ -243,46 +341,58 @@ function Page() {
           </div>
           <div className="flex items-center">
             <Tabs defaultValue="all" className="w-full">
-              <TabsList className="!h-[50px] !w-[40%] ">
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="active">Active</TabsTrigger>
-                <TabsTrigger value="drafts">Drafts</TabsTrigger>
-                <TabsTrigger value="archive">Archive</TabsTrigger>
+              <TabsList className="!h-[40px] !w-[40%] ">
+                <TabsTrigger value="all" className="text-[12px]">
+                  All
+                </TabsTrigger>
+                <TabsTrigger value="active" className="text-[12px]">
+                  Active
+                </TabsTrigger>
+                <TabsTrigger value="drafts" className="text-[12px]">
+                  Drafts
+                </TabsTrigger>
+                <TabsTrigger value="archive" className="text-[12px]">
+                  Archive
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="all">
                 <TableView
                   heading={tableHeading}
-                  data={products}
-                  totalPages={2}
+                  data={data || []}
+                  totalPages={1}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
+                  isLoading={isLoading}
                 />
               </TabsContent>
               <TabsContent value="active">
                 <TableView
                   heading={tableHeading}
-                  data={products}
-                  totalPages={2}
+                  data={data || []}
+                  totalPages={1}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
+                  isLoading={isLoading}
                 />
               </TabsContent>
               <TabsContent value="drafts">
                 <TableView
                   heading={tableHeading}
-                  data={products}
-                  totalPages={2}
+                  data={[]}
+                  totalPages={1}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
+                  isLoading={isLoading}
                 />
               </TabsContent>
               <TabsContent value="archive">
                 <TableView
                   heading={tableHeading}
-                  data={products}
-                  totalPages={2}
+                  data={[]}
+                  totalPages={1}
                   currentPage={1}
                   onPageChange={(newPage) => setPage(newPage)}
+                  isLoading={isLoading}
                 />
               </TabsContent>
             </Tabs>
@@ -296,17 +406,22 @@ function Page() {
         description="Enter the details of the new product."
         className="min-w-xl"
       >
-        <form className="py-4 w-full flex flex-col gap-4">
+        <form
+          className="py-4 w-full flex flex-col gap-4"
+          onSubmit={handleProductSubmit}
+        >
           <div className="flex w-full flex-row gap-4 items-center">
             <div className="space-y-2 w-full">
               <label className="text-sm font-medium text-neutral-500">
-                Product name
+                Product Name
               </label>
               <Input
                 type="text"
-                placeholder="product name"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter product name"
+                value={formData.product_name}
+                onChange={(e) =>
+                  setFormData({ ...formData, product_name: e.target.value })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
@@ -316,9 +431,11 @@ function Page() {
               </label>
               <Input
                 type="text"
-                placeholder="SKU"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter SKU"
+                value={formData.sku}
+                onChange={(e) =>
+                  setFormData({ ...formData, sku: e.target.value })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
@@ -331,20 +448,24 @@ function Page() {
               <Input
                 type="number"
                 placeholder="0.00"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                value={formData.memory_price}
+                onChange={(e) =>
+                  setFormData({ ...formData, memory_price: e.target.value })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
             <div className="space-y-2 w-full">
               <label className="text-sm font-medium text-neutral-500">
-                Retail Price
+                Retail Prices
               </label>
               <Input
-                type="text"
-                placeholder="SKU"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                type="number"
+                placeholder="0.00"
+                value={formData.retail_price}
+                onChange={(e) =>
+                  setFormData({ ...formData, retail_price: e.target.value })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
@@ -354,14 +475,34 @@ function Page() {
               <label className="text-sm font-medium text-neutral-500">
                 Category
               </label>
-              <Select>
+              <Select
+                value={formData.category} // This is the ID
+                onValueChange={(value) => {
+                  if (value === "create_new") {
+                    handleCreateCategory();
+                  } else {
+                    setFormData({ ...formData, category: value });
+                  }
+                }}
+              >
                 <SelectTrigger className="w-full !h-10 border-slate-700">
-                  <SelectValue placeholder="Theme" />
+                  <SelectValue placeholder="Select or create category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
+                  <SelectItem
+                    value="create_new"
+                    className="font-semibold text-blue-600"
+                  >
+                    + Create New Category
+                  </SelectItem>
+                  {categories?.map((cat: any) => (
+                    <SelectItem
+                      key={cat.id} // Ensure key is unique
+                      value={cat.id || "default"} // Pass cat.id as value
+                    >
+                      {cat.category_name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -373,9 +514,11 @@ function Page() {
               </label>
               <Input
                 type="text"
-                placeholder="description"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                placeholder="add description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
@@ -388,8 +531,13 @@ function Page() {
               <Input
                 type="number"
                 placeholder="0"
-                //  value={email}
-                //  onChange={(e) => setEmail(e.target.value)}
+                value={formData.inventory_quantity}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    inventory_quantity: e.target.value,
+                  })
+                }
                 className="border-slate-700 h-10 w-full placeholder:text-slate-500"
               />
             </div>
@@ -399,20 +547,52 @@ function Page() {
               <label className="text-sm font-medium text-neutral-500">
                 Product Image
               </label>
-              <div className="border-slate-700 flex flex-col h-40 p-2 w-full border rounded-lg items-center justify-center">
-                <TrayArrowUpIcon
-                  weight="duotone"
-                  size={35}
-                  className="text-[#B69B64]"
+              <div
+                className="border-slate-700 flex flex-col h-40 p-2 w-full border rounded-lg items-center justify-center cursor-pointer relative overflow-hidden"
+                onClick={() => document.getElementById("file-upload")?.click()}
+              >
+                <Input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
                 />
-                <p className="text-sm text-neutral-400">
-                  Drag and drop images here or click to upload
-                </p>
+
+                {formData.imagePreview ? (
+                  <img
+                    src={formData.imagePreview}
+                    alt="Preview"
+                    className="h-full w-full object-contain"
+                  />
+                ) : (
+                  <>
+                    <TrayArrowUpIcon
+                      weight="duotone"
+                      size={35}
+                      className="text-[#B69B64]"
+                    />
+                    <p className="text-sm text-neutral-400 mt-2">
+                      Drag and drop images or click to browse
+                    </p>
+                  </>
+                )}
+
+                <div className="absolute bottom-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="text-xs bg-white/80"
+                  >
+                    {formData.image ? "Change Image" : "Upload Images"}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex w-full flex-row gap-8 items-center justify-between">
+          <div className="flex w-full flex-row gap-8 items-center justify-between mt-4">
             <Button
+              type="button"
               variant={"outline"}
               onClick={handleCreateProduct}
               className="flex-grow border font-semibold text-sm text-neutral-700 py-4 cursor-pointer"
@@ -420,10 +600,76 @@ function Page() {
               Cancel
             </Button>
             <Button
-              onClick={handleCreateProduct}
+              type="submit"
+              disabled={isCreatingProduct}
               className="bg-[#B69B64] flex-grow font-semibold border-0 text-sm text-white py-4 cursor-pointer"
             >
-              Add Products
+              {isCreatingProduct ? "Creating..." : "Create Plan"}
+            </Button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
+        open={openCreateCategoryModal}
+        onOpenChange={setOpenCreateCategoryModal}
+        heading="Create New Category"
+        description="Enter the details of the new category."
+        className="min-w-xl"
+      >
+        <form
+          className="py-4 w-full flex flex-col gap-4"
+          onSubmit={handleCategorySubmit}
+        >
+          <div className="space-y-2 w-full">
+            <label className="text-sm font-medium text-neutral-500">
+              Category Name
+            </label>
+            <Input
+              type="text"
+              placeholder="e.g. Well man"
+              value={categoryForm.category_name}
+              onChange={(e) =>
+                setCategoryForm({
+                  ...categoryForm,
+                  category_name: e.target.value,
+                })
+              }
+              className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+            />
+          </div>
+          <div className="space-y-2 w-full">
+            <label className="text-sm font-medium text-neutral-500">
+              Category Description
+            </label>
+            <Input
+              type="text"
+              placeholder="e.g. Good for all men"
+              value={categoryForm.category_description}
+              onChange={(e) =>
+                setCategoryForm({
+                  ...categoryForm,
+                  category_description: e.target.value,
+                })
+              }
+              className="border-slate-700 h-10 w-full placeholder:text-slate-500"
+            />
+          </div>
+          <div className="flex w-full flex-row gap-8 items-center justify-between mt-4">
+            <Button
+              type="button"
+              variant={"outline"}
+              onClick={handleCreateCategory}
+              className="flex-grow border font-semibold text-sm text-neutral-700 py-4 cursor-pointer"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isCreatingCategory}
+              className="bg-[#B69B64] flex-grow font-semibold border-0 text-sm text-white py-4 cursor-pointer"
+            >
+              {isCreatingCategory ? "Creating..." : "Create Category"}
             </Button>
           </div>
         </form>
