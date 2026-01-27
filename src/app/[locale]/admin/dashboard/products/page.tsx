@@ -190,8 +190,8 @@ function Page() {
     category: "", // This will store the category_id
     description: "",
     inventory_quantity: "",
-    image: null as File | null,
-    imagePreview: null as string | null, // Add preview state
+    images: [] as File[], // Changed to array for multiple images
+    imagePreviews: [] as string[], // Changed to array for multiple previews
   });
 
   // Category Form State
@@ -210,28 +210,20 @@ function Page() {
 
   const handleProductSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Prepare payload. Mapping "category" to "category_id" if API expects "category_id"
-    // Assuming the API expects the field name "category_id" for the ID.
-    // If exact API spec is "category_id", I should change the key or map it here.
-    // Based on user prompt "create proucdt is requesting for category id", I will map it.
-
-    // Construct payload object matching API expectation
-    // NOTE: If using FormData, append accordingly. If JSON, standard object.
-    // User didn't specify FormData vs JSON strictly but "image uploading" strongly implies FormData.
-    // I will switch to FormData to support image upload properly.
 
     const submitData = new FormData();
     submitData.append("product_name", formData.product_name);
-    submitData.append("sku", formData.sku);
+    submitData.append("product_sku", formData.sku);
     submitData.append("memory_price", formData.memory_price);
     submitData.append("retail_price", formData.retail_price);
-    submitData.append("category_id", formData.category); // Map to category_id
+    submitData.append("product_category_id", formData.category);
     submitData.append("description", formData.description);
-    submitData.append("inventory_quantity", formData.inventory_quantity);
+    submitData.append("product_qty", formData.inventory_quantity);
 
-    if (formData.image) {
-      submitData.append("image", formData.image);
-    }
+    // Append multiple images as an array
+    formData.images.forEach((image) => {
+      submitData.append("product_photo[]", image);
+    });
 
     createProduct(submitData, {
       onSuccess: () => {
@@ -244,8 +236,8 @@ function Page() {
           category: "",
           description: "",
           inventory_quantity: "",
-          image: null,
-          imagePreview: null,
+          images: [],
+          imagePreviews: [],
         });
         refetchProducts();
       },
@@ -267,15 +259,33 @@ function Page() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
+    if (e.target.files && e.target.files.length > 0) {
+      const filesArray = Array.from(e.target.files);
+      const previewUrls = filesArray.map((file) => URL.createObjectURL(file));
+
       setFormData({
         ...formData,
-        image: file,
-        imagePreview: URL.createObjectURL(file),
+        images: [...formData.images, ...filesArray],
+        imagePreviews: [...formData.imagePreviews, ...previewUrls],
       });
     }
   };
+
+  const handleRemoveImage = (index: number) => {
+    const newImages = formData.images.filter((_, i) => i !== index);
+    const newPreviews = formData.imagePreviews.filter((_, i) => i !== index);
+
+    // Revoke the object URL to free memory
+    URL.revokeObjectURL(formData.imagePreviews[index]);
+
+    setFormData({
+      ...formData,
+      images: newImages,
+      imagePreviews: newPreviews,
+    });
+  };
+
+  console.log(categories, "from backend");
 
   return (
     <div className="min-h-[100dvh] pt-[4rem] bg-[#FAF9F6] ">
@@ -476,7 +486,7 @@ function Page() {
                 Category
               </label>
               <Select
-                value={formData.category} // This is the ID
+                value={formData.category}
                 onValueChange={(value) => {
                   if (value === "create_new") {
                     handleCreateCategory();
@@ -496,10 +506,7 @@ function Page() {
                     + Create New Category
                   </SelectItem>
                   {categories?.map((cat: any) => (
-                    <SelectItem
-                      key={cat.id} // Ensure key is unique
-                      value={cat.id || "default"} // Pass cat.id as value
-                    >
+                    <SelectItem key={cat.id} value={cat.id || "default"}>
                       {cat?.category_name}
                     </SelectItem>
                   ))}
@@ -542,29 +549,61 @@ function Page() {
               />
             </div>
           </div>
-          <div className="flex w-full flex-row gap-4 items-center">
+          <div className="flex w-full flex-col gap-4">
             <div className="space-y-2 w-full">
               <label className="text-sm font-medium text-neutral-500">
-                Product Image
+                Product Images
               </label>
               <div
-                className="border-slate-700 flex flex-col h-40 p-2 w-full border rounded-lg items-center justify-center cursor-pointer relative overflow-hidden"
+                className="border-slate-700 flex flex-col min-h-40 p-4 w-full border rounded-lg items-center justify-center cursor-pointer relative"
                 onClick={() => document.getElementById("file-upload")?.click()}
               >
                 <Input
                   id="file-upload"
                   type="file"
                   accept="image/*"
+                  multiple
                   className="hidden"
                   onChange={handleFileChange}
                 />
 
-                {formData.imagePreview ? (
-                  <img
-                    src={formData.imagePreview}
-                    alt="Preview"
-                    className="h-full w-full object-contain"
-                  />
+                {formData.imagePreviews.length > 0 ? (
+                  <div className="grid grid-cols-3 gap-3 w-full">
+                    {formData.imagePreviews.map((preview, index) => (
+                      <div
+                        key={index}
+                        className="relative group aspect-square rounded-lg overflow-hidden border border-slate-300"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <img
+                          src={preview}
+                          alt={`Preview ${index + 1}`}
+                          className="h-full w-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveImage(index);
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 ) : (
                   <>
                     <TrayArrowUpIcon
@@ -575,6 +614,9 @@ function Page() {
                     <p className="text-sm text-neutral-400 mt-2">
                       Drag and drop images or click to browse
                     </p>
+                    <p className="text-xs text-neutral-400 mt-1">
+                      You can select multiple images
+                    </p>
                   </>
                 )}
 
@@ -584,7 +626,9 @@ function Page() {
                     variant="outline"
                     className="text-xs bg-white/80"
                   >
-                    {formData.image ? "Change Image" : "Upload Images"}
+                    {formData.images.length > 0
+                      ? `Add More Images (${formData.images.length} selected)`
+                      : "Upload Images"}
                   </Button>
                 </div>
               </div>

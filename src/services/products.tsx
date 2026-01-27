@@ -46,6 +46,7 @@ export const useGetCategories = () => {
     queryKey: ["categories"],
     queryFn: async () => {
       const response = await axiosInstance.get(`/product/category`);
+      console.log(response);
       return response.data.data;
     },
   });

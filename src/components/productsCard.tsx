@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -33,6 +33,7 @@ function ProductsCard({
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
   };
+  console.log(name);
   return (
     <Tooltip>
       <TooltipTrigger>
@@ -53,10 +54,14 @@ function ProductsCard({
             <div className="flex flex-row items-start justify-between">
               <h3 className=" text-[#221A11] text-[14px] mb-1">{name}</h3>
               <p className="flex flex-row text-sm font-semibold items-start">
-                <span className="text-[16px] font-bold">${price.toFixed(2)}</span>
+                <span className="text-[16px] font-bold">
+                  ${price.toFixed(2)}
+                </span>
               </p>
             </div>
-            <p className="text-xs text-left capitalize text-gray-600 my-2">{category}</p>
+            <p className="text-xs text-left capitalize text-gray-600 my-2">
+              {category}
+            </p>
 
             <div className="flex items-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => {
@@ -64,8 +69,8 @@ function ProductsCard({
                   i + 1 <= rating
                     ? "fill-amber-400 text-amber-400"
                     : i + 0.5 <= rating
-                    ? "fill-amber-300 text-amber-300"
-                    : "fill-gray-300 text-gray-300";
+                      ? "fill-amber-300 text-amber-300"
+                      : "fill-gray-300 text-gray-300";
 
                 return <Star key={i} className={`h-4 w-4 ${fillType}`} />;
               })}
@@ -73,14 +78,14 @@ function ProductsCard({
             </div>
 
             <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-2 mt-5"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="h-4 w-4" />
-                Add to Cart
-              </Button>
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2 mt-5"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Add to Cart
+            </Button>
           </CardContent>
         </Card>
       </TooltipTrigger>

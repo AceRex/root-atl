@@ -1,18 +1,9 @@
 "use client";
 import Container from "@/components/container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  BabyIcon,
-  GenderFemaleIcon,
-  GenderMaleIcon,
-  JarIcon,
-  RectangleDashedIcon,
-  TeaBagIcon,
-} from "@phosphor-icons/react";
-import { Tablet } from "lucide-react";
+import { RectangleDashedIcon } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
 import { useGetCategories, useGetProducts } from "@/services/products";
 
@@ -70,70 +61,47 @@ function Products() {
         </div>
       )}
       {categories?.length > 0 && (
-        <Tabs defaultValue="sup_men" className="mt-6 w-full">
+        <Tabs
+          defaultValue={categories[0]?.category?.category_name}
+          className="mt-6 w-full"
+        >
           <TabsList className="h-14 w-full rounded-full bg-gray-100 p-1 flex gap-2">
-            <TabsTrigger
-              value="sup_men"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <GenderMaleIcon weight="bold" />
-              <p className="hidden lg:block">{categories[0].name}</p>
-            </TabsTrigger>
-            <TabsTrigger
-              value="sup_w_men"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <GenderFemaleIcon weight="bold" />
-              <p className="hidden lg:block">{categories[1].name}</p>
-            </TabsTrigger>
-            <TabsTrigger
-              value="teas"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <TeaBagIcon weight="bold" />
-              <p className="hidden lg:block">{categories[2].name}</p>
-            </TabsTrigger>
-            <TabsTrigger
-              value="smart_gadgets"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <Tablet className="font-semibold" />
-              <p className="hidden lg:block">{categories[3].name}</p>
-            </TabsTrigger>
-            <TabsTrigger
-              value="kids_sess"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <BabyIcon weight="bold" />
-              <p className="hidden lg:block">{categories[4].name}</p>
-            </TabsTrigger>
-            <TabsTrigger
-              value="skincare"
-              className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
-            >
-              <JarIcon weight="bold" />
-              <p className="hidden lg:block">{categories[5].name}</p>
-            </TabsTrigger>
+            {categories?.map(
+              ({
+                category_name,
+                category_description,
+                id,
+              }: {
+                category_name: string;
+                category_description: string;
+                id: number;
+              }) => (
+                <TabsTrigger
+                  key={id}
+                  value={category_name}
+                  className="data-[state=active]:bg-white data-[state=active]:rounded-full px-3 lg:px-6 py-2 text-sm font-medium transition cursor-pointer"
+                >
+                  <p className="hidden lg:block">{category_name}</p>
+                </TabsTrigger>
+              ),
+            )}
           </TabsList>
 
-          <TabsContent value="sup_men">
-            <ImageGrid items={data} />
-          </TabsContent>
-          <TabsContent value="sup_w_men">
-            <ImageGrid items={data} />
-          </TabsContent>
-          <TabsContent value="teas">
-            <ImageGrid items={data} />
-          </TabsContent>
-          <TabsContent value="smart_gadgets">
-            <ImageGrid items={data} />
-          </TabsContent>
-          <TabsContent value="kids_sess">
-            <ImageGrid items={data} />
-          </TabsContent>
-          <TabsContent value="skincare">
-            <ImageGrid items={data} />
-          </TabsContent>
+          {categories?.map(
+            ({
+              category_name,
+              category_description,
+              id,
+            }: {
+              category_name: string;
+              category_description: string;
+              id: number;
+            }) => (
+              <TabsContent key={id} value={category_name}>
+                <ImageGrid items={data} />
+              </TabsContent>
+            ),
+          )}
         </Tabs>
       )}
     </Container>
