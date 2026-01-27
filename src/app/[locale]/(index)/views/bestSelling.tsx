@@ -65,12 +65,12 @@ function BestSelling() {
         {data.map((item, index) => (
           <ProductsCard
             key={index}
-            name={item.product_name}
-            image={item.image}
-            category={item.category}
-            price={item.price}
-            reviews={item.reviews}
-            rating={item.rating}
+            name={item?.product_name}
+            image={item?.image}
+            category={item?.category}
+            price={item?.price}
+            reviews={item?.reviews}
+            rating={item?.rating}
           />
         ))}
       </div>

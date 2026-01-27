@@ -238,11 +238,11 @@ export default function DashboardPage() {
           {products.map((product, index) => (
             <ProductsCard
               key={index}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              reviews={product.reviews}
-              rating={product.rating}
+              name={product?.name}
+              category={product?.category}
+              price={product?.price}
+              reviews={product?.reviews}
+              rating={product?.rating}
             />
           ))}
         </div>
@@ -356,11 +356,11 @@ export default function DashboardPage() {
           {products.map((product, index) => (
             <ProductsCard
               key={index}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              reviews={product.reviews}
-              rating={product.rating}
+              name={product?.name}
+              category={product?.category}
+              price={product?.price}
+              reviews={product?.reviews}
+              rating={product?.rating}
             />
           ))}
         </div>

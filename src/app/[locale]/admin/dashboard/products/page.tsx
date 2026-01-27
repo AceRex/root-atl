@@ -500,7 +500,7 @@ function Page() {
                       key={cat.id} // Ensure key is unique
                       value={cat.id || "default"} // Pass cat.id as value
                     >
-                      {cat.category_name}
+                      {cat?.category_name}
                     </SelectItem>
                   ))}
                 </SelectContent>
